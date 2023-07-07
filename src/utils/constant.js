@@ -4,7 +4,7 @@ const { MdOutlineLibraryMusic, BiDisc, GrLineChart, MdOutlineFeed } = icons;
 
 export const sidebarMenu = [
   {
-    path: "personal",
+    path: "mymusic",
     text: "Cá nhân",
     icons: <BiDisc size={24} />,
   },
