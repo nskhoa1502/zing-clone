@@ -70,17 +70,19 @@ const Slider = () => {
   }, []);
 
   return (
-    <div className="flex gap-4 w-full overflow-hidden px-[59px] pt-6">
-      {banner?.map((item, index) => (
-        <img
-          key={item?.encodeId}
-          src={item?.banner}
-          className={`flex-1 object contain w-1/3 rounded-lg slider-item ${
-            index <= 2 ? "block" : "hidden"
-          }`}
-          alt="banner"
-        />
-      ))}
+    <div className="  w-full overflow-hidden  px-[59px]">
+      <div className="flex gap-6">
+        {banner?.map((item, index) => (
+          <img
+            key={item?.encodeId}
+            src={item?.banner}
+            className={`flex-1 object-contain w-[30%] rounded-lg slider-item ${
+              index <= 2 ? "block" : "hidden"
+            }`}
+            alt="banner"
+          />
+        ))}
+      </div>
     </div>
   );
 };
