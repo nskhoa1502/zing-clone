@@ -61,7 +61,7 @@ const Slider = () => {
       // sliderEls[max].classList.add("animate-slide-right");
       min = min === sliderEls.length - 1 ? 0 : min + 1;
       max = max === sliderEls.length - 1 ? 0 : max + 1;
-      // console.log(list);
+      console.log(list);
     }, 3000);
 
     return () => {
