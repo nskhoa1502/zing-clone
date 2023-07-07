@@ -1,12 +1,12 @@
 import icons from "./icons";
 
-const { MdOutlineLibraryMusic } = icons;
+const { MdOutlineLibraryMusic, BiDisc, GrLineChart, MdOutlineFeed } = icons;
 
 export const sidebarMenu = [
   {
     path: "personal",
     text: "Cá nhân",
-    icons: <MdOutlineLibraryMusic size={24} />,
+    icons: <BiDisc size={24} />,
   },
   {
     path: "",
@@ -17,11 +17,11 @@ export const sidebarMenu = [
   {
     path: "zing-chart",
     text: "#zingchart",
-    icons: <MdOutlineLibraryMusic size={24} />,
+    icons: <GrLineChart size={24} />,
   },
   {
     path: "follow",
     text: "Theo dõi",
-    icons: <MdOutlineLibraryMusic size={24} />,
+    icons: <MdOutlineFeed size={24} />,
   },
 ];
