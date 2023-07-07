@@ -1,9 +1,12 @@
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getArrSlider } from "../utils/helpers";
+import * as actions from "../redux/actions";
 
 const Slider = () => {
   const { banner } = useSelector((state) => state.app);
+  const dispatch = useDispatch();
+  // console.log(banner);
 
   useEffect(() => {
     const sliderEls = document.getElementsByClassName("slider-item");
@@ -59,15 +62,21 @@ const Slider = () => {
         }
       });
       // sliderEls[max].classList.add("animate-slide-right");
-      min = min === sliderEls.length - 1 ? 0 : min + 1;
-      max = max === sliderEls.length - 1 ? 0 : max + 1;
-      console.log(list);
+      min = min === sliderEls?.length - 1 ? 0 : min + 1;
+      max = max === sliderEls?.length - 1 ? 0 : max + 1;
     }, 3000);
 
     return () => {
       intervalId && clearInterval(intervalId);
     };
   }, []);
+
+  const handleClickBanner = (item) => {
+    // console.log(item.encodeId);
+    if (item?.type === 1) {
+      dispatch(actions.setCurrentSongId(item?.encodeId));
+    }
+  };
 
   return (
     <div className="  w-full overflow-hidden  px-[59px]">
@@ -76,7 +85,8 @@ const Slider = () => {
           <img
             key={item?.encodeId}
             src={item?.banner}
-            className={`flex-1 object-contain w-[30%] rounded-lg slider-item ${
+            onClick={() => handleClickBanner(item)}
+            className={`flex-1 object-contain w-[30%] cursor-pointer rounded-lg slider-item ${
               index <= 2 ? "block" : "hidden"
             }`}
             alt="banner"
