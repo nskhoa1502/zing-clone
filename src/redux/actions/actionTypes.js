@@ -4,6 +4,7 @@ const actionTypes = {
 
   // Music
   PLAY: "PLAY",
+  ERROR: "ERROR",
 };
 
 export default actionTypes;

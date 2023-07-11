@@ -3,7 +3,7 @@ import * as apis from "../../apis";
 
 export const getHome = () => async (dispatch) => {
   try {
-    const response = await apis.getHome();
+    const response = await apis.apiGetHome();
     // console.log(response.data.data.items);
     if (response?.data.err === 0) {
       dispatch({

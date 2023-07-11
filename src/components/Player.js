@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import * as apis from "../apis";
 import icons from "../utils/icons";
+import * as actions from "../redux/actions";
 
 const {
   AiFillHeart,
@@ -16,40 +17,79 @@ const {
 } = icons;
 
 const Player = () => {
-  const { currentSongId, isPlaying } = useSelector((state) => state.music);
+  const audioEl = useRef(new Audio());
+  const { currentSongId, isPlaying, error } = useSelector(
+    (state) => state.music
+  );
+  // console.log(currentSongId);
   const [songInfo, setSongInfo] = useState(null);
+  const [source, setSource] = useState(null);
+  const dispatch = useDispatch();
   // const [isPlaying, setIsPlaying] = useState(false);
-  // const audioEl = new Audio(
-  //   "https://mp3-s1-zmp3.zmdcdn.me/203896df849c6dc2348d/1563170591010578957?authen=exp=1689236261~acl=/203896df849c6dc2348d/*~hmac=c273db5dbbe1f2c88bc4e3cf1f43f121&fs=MTY4OTA2MzQ2MTMxMnx3ZWJWNnwwfDU5LjE1My4yMjAdUngNDE"
-  // );
+  // const audioEl = new Audio();
   // console.log(isPlaying);
 
   // console.log(audioEl);
   // console.log(currentSongId);
+  // console.log(error);
 
   useEffect(() => {
     const fetchDetailSong = async () => {
-      const response = await apis.getDetailSong(currentSongId);
-      // console.log(response.data);
+      const [res1, res2] = await Promise.all([
+        apis.apiGetDetailSong(currentSongId),
+        apis.apiGetSong(currentSongId),
+      ]);
 
-      if (response.data.err === 0) {
-        setSongInfo(response.data.data);
+      try {
+        if (res1?.data.err === 0) {
+          setSongInfo(res1?.data?.data);
+        }
+
+        if (res2?.data.err === 0) {
+          setSource(`${res2?.data?.data["128"]}`);
+          dispatch(actions.error(null));
+
+          // console.log(res2?.data?.data);
+        }
+        if (res2?.data.err !== 0) {
+          setSource(``);
+          // console.log(res2?.data);
+          dispatch(actions.play(false));
+          dispatch(actions.error(res2?.data));
+        }
+      } catch (error) {
+        console.error(error);
       }
-    };
-
-    const fetchSong = async () => {
-      const response = await apis.getSong(currentSongId);
-      console.log(response.data);
     };
 
     fetchDetailSong();
   }, [currentSongId]);
 
-  useEffect(() => {}, [currentSongId]);
+  useEffect(() => {
+    audioEl.current.src = source;
+    if (isPlaying && source) {
+      // Add a check for source
+      audioEl.current.play().catch((error) => {
+        console.error("Error playing audio:", error);
+        dispatch(actions.play(false));
+      });
+    } else {
+      audioEl.current.pause();
+    }
+  }, [currentSongId, source, isPlaying]);
 
-  const handleTogglePlayMusic = (e) => {
-    e.preventDefault();
-    // setIsPlaying((prev) => !prev);
+  const handleTogglePlayMusic = () => {
+    if (isPlaying) {
+      audioEl.current.pause();
+      dispatch(actions.play(false));
+    } else if (source) {
+      // Add a check for source
+      audioEl.current.play().catch((error) => {
+        console.error("Error playing audio:", error);
+        dispatch(actions.play(false));
+      });
+      dispatch(actions.play(true));
+    }
   };
   return (
     <div className="bg-main-400 px-5 h-full flex ">
@@ -90,9 +130,9 @@ const Player = () => {
             onClick={handleTogglePlayMusic}
           >
             {isPlaying ? (
-              <BsFillPlayFill size={30} />
-            ) : (
               <BsFillPauseFill size={30} />
+            ) : (
+              <BsFillPlayFill size={30} />
             )}
           </span>
           <span className="cursor-pointer">
@@ -102,7 +142,10 @@ const Player = () => {
             <CiRepeat size={24} />
           </span>
         </div>
-        <div>Progress bar</div>
+        <div className="flex flex-col">
+          {error && <span className="text-red-500 text-xs">{error?.msg}</span>}
+          {!error && "Progress bar"}
+        </div>
       </div>
       <div className="w-[30%] flex-auto border border-red-500">volume</div>
     </div>

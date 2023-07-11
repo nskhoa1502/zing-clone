@@ -9,3 +9,7 @@ export const play = (flag) => ({
   type: actionTypes.PLAY,
   flag,
 });
+export const error = (errData) => ({
+  type: actionTypes.ERROR,
+  errData,
+});

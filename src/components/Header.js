@@ -7,8 +7,8 @@ const { HiArrowLeft, HiArrowRight } = icons;
 const Header = () => {
   return (
     <div className="flex justify-between w-full">
-      <div className="flex gap-6 w-full bg-blue-500 items-center">
-        <div className="flex gap-4 text-gray-400 bg-red-500">
+      <div className="flex gap-6 w-full items-center">
+        <div className="flex gap-4 text-gray-400 ">
           <span>
             <HiArrowLeft size={24} />
           </span>
@@ -20,7 +20,7 @@ const Header = () => {
           <Search />
         </div>
       </div>
-      <div> dang nhap</div>
+      <div>Login</div>
     </div>
   );
 };

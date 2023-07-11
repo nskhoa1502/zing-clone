@@ -1,6 +1,6 @@
 import axiosConfig from "../axios";
 
-export const getHome = async () => {
+export const apiGetHome = async () => {
   try {
     const response = await axiosConfig({
       url: `/home`,

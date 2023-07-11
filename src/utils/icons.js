@@ -8,7 +8,13 @@ import { BiDisc } from "react-icons/bi";
 import { GrLineChart } from "react-icons/gr";
 import { AiOutlineHeart, AiOutlineSearch, AiFillHeart } from "react-icons/ai";
 import { HiArrowLeft, HiArrowRight } from "react-icons/hi";
-import { BsThreeDots, BsFillPlayFill,BsFillPauseFill } from "react-icons/bs";
+import {
+  BsThreeDots,
+  BsFillPlayFill,
+  BsFillPauseFill,
+  BsMusicNoteBeamed,
+  BsDot,
+} from "react-icons/bs";
 import { CiRepeat, CiShuffle } from "react-icons/ci";
 
 const icons = {
@@ -27,7 +33,9 @@ const icons = {
   MdSkipPrevious,
   CiShuffle,
   BsFillPlayFill,
-  BsFillPauseFill
+  BsFillPauseFill,
+  BsMusicNoteBeamed,
+  BsDot,
 };
 
 export default icons;

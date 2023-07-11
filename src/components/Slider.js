@@ -2,10 +2,12 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getArrSlider } from "../utils/helpers";
 import * as actions from "../redux/actions";
+import { useNavigate } from "react-router-dom";
 
 const Slider = () => {
   const { banner } = useSelector((state) => state.app);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   // console.log(banner);
 
   useEffect(() => {
@@ -76,6 +78,11 @@ const Slider = () => {
     if (item?.type === 1) {
       dispatch(actions.setCurrentSongId(item?.encodeId));
       dispatch(actions.play(true));
+    } else if (item?.type === 4) {
+      console.log(item);
+      const albumPath = item?.link.split(".")[0];
+      console.log(albumPath);
+      navigate(albumPath);
     }
   };
 

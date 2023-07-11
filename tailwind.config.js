@@ -17,6 +17,9 @@ module.exports = {
         "main-400": "#c0d8d8",
         "main-500": "#0e8080",
       },
+      flex: {
+        4: "4 4 0%",
+      },
       screens: {
         1600: "1600px",
       },
