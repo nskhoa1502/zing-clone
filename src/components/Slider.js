@@ -75,6 +75,7 @@ const Slider = () => {
     // console.log(item.encodeId);
     if (item?.type === 1) {
       dispatch(actions.setCurrentSongId(item?.encodeId));
+      dispatch(actions.play(true));
     }
   };
 

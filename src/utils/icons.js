@@ -1,8 +1,15 @@
-import { MdOutlineLibraryMusic, MdOutlineFeed } from "react-icons/md";
+import {
+  MdOutlineLibraryMusic,
+  MdOutlineFeed,
+  MdSkipNext,
+  MdSkipPrevious,
+} from "react-icons/md";
 import { BiDisc } from "react-icons/bi";
 import { GrLineChart } from "react-icons/gr";
-import { AiOutlineSearch } from "react-icons/ai";
+import { AiOutlineHeart, AiOutlineSearch, AiFillHeart } from "react-icons/ai";
 import { HiArrowLeft, HiArrowRight } from "react-icons/hi";
+import { BsThreeDots, BsFillPlayFill,BsFillPauseFill } from "react-icons/bs";
+import { CiRepeat, CiShuffle } from "react-icons/ci";
 
 const icons = {
   MdOutlineLibraryMusic,
@@ -12,6 +19,15 @@ const icons = {
   HiArrowLeft,
   HiArrowRight,
   AiOutlineSearch,
+  AiFillHeart,
+  AiOutlineHeart,
+  BsThreeDots,
+  CiRepeat,
+  MdSkipNext,
+  MdSkipPrevious,
+  CiShuffle,
+  BsFillPlayFill,
+  BsFillPauseFill
 };
 
 export default icons;
