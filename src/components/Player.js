@@ -18,9 +18,13 @@ const {
   BsFillPlayFill,
   CiShuffle,
   BsRepeat1,
+  BsMusicNoteList,
+  SlVolumeOff,
+  SlVolume1,
+  SlVolume2,
 } = icons;
 
-const Player = () => {
+const Player = ({ setIsShowRightBar }) => {
   const [audio, setAudio] = useState(new Audio());
   const { currentSongId, isPlaying, error, songs } = useSelector(
     (state) => state.music
@@ -35,6 +39,13 @@ const Player = () => {
   const [isShuffle, setIsShuffle] = useState(false);
   const [repeatMode, setRepeatMode] = useState(0);
   const [isLoadedSource, setIsLoadedSource] = useState(true);
+  const [volume, setVolume] = useState(50);
+
+  // console.log("rerender");
+
+  useEffect(() => {
+    audio.volume = volume / 100;
+  }, [audio, volume]);
 
   useEffect(() => {
     const fetchDetailSong = async () => {
@@ -142,15 +153,18 @@ const Player = () => {
         dispatch(actions.play(true));
       });
       dispatch(actions.play(true));
+      console.log(audio.currentTime);
       let percent =
         Math.round((audio.currentTime * 10000) / songInfo?.duration) / 100;
       if (thumbRef.current) {
         thumbRef.current.style.cssText = `right: ${100 - percent}%`;
       }
       setCurrentSecond(Math.round(audio.currentTime));
+      // console.log(audio.currentTime);
     }
   };
 
+  // console.log(audio.currentTime);
   const handleClickProgress = (e) => {
     // console.log(trackRef.current.getBoundingClientRect());
     const trackRect = trackRef.current.getBoundingClientRect();
@@ -211,6 +225,12 @@ const Player = () => {
     audio.play();
   };
 
+  const handleChangeVolume = (e) => {
+    // console.log(audio.volume);
+    // console.log(e.target.value);
+    setVolume(e.target.value);
+    audio.volume = e.target.value / 100;
+  };
   return (
     <div className="bg-main-400 px-5 h-full flex">
       <div className="w-[30%] flex-auto flex items-center gap-3">
@@ -321,7 +341,33 @@ const Player = () => {
           </>
         )}
       </div>
-      <div className="w-[30%] flex-auto border border-red-500">volume</div>
+      <div className="w-[30%] flex-auto border border-red-500 flex items-center justify-end gap-4">
+        <div className="flex gap-2 items-center">
+          <span onClick={() => setVolume((prev) => (+prev === 0 ? 50 : 0))}>
+            {+volume >= 50 ? (
+              <SlVolume2 />
+            ) : +volume === 0 ? (
+              <SlVolumeOff />
+            ) : (
+              <SlVolume1 />
+            )}
+          </span>
+          <input
+            type="range"
+            step={1}
+            min={0}
+            max={100}
+            value={volume}
+            onChange={handleChangeVolume}
+          />
+        </div>
+        <span
+          onClick={() => setIsShowRightBar((prev) => !prev)}
+          className="p-1 rounded-sm cursor-pointer bg-main-500 opacity-90 hover:opacity-100"
+        >
+          <BsMusicNoteList size={20} />
+        </span>
+      </div>
     </div>
   );
 };

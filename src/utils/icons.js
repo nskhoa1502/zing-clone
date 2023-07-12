@@ -15,8 +15,10 @@ import {
   BsMusicNoteBeamed,
   BsDot,
   BsRepeat1,
+  BsMusicNoteList,
 } from "react-icons/bs";
 import { CiRepeat, CiShuffle } from "react-icons/ci";
+import { SlVolumeOff, SlVolume1, SlVolume2 } from "react-icons/sl";
 
 const icons = {
   MdOutlineLibraryMusic,
@@ -38,6 +40,10 @@ const icons = {
   BsMusicNoteBeamed,
   BsDot,
   BsRepeat1,
+  BsMusicNoteList,
+  SlVolumeOff,
+  SlVolume1,
+  SlVolume2,
 };
 
 export default icons;
