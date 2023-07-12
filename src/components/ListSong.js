@@ -19,7 +19,7 @@ const ListSong = ({ songData }) => {
       }}
       className="flex justify-between items-center p-[10px] border-t border-[rgba(0,0,0,0.05)] hover:bg-main-200 cursor-pointer"
     >
-      <div className="flex items-center gap-3 w-[50%] flex-none">
+      <div className="flex items-center gap-3 w-[50%] flex-none ">
         <span>
           <BsMusicNoteBeamed />
         </span>

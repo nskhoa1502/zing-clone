@@ -14,10 +14,10 @@ const Public = () => {
           <div className="h-[70px] px-[59px] flex items-center  ">
             <Header />
           </div>
-          <Scrollbars style={{ width: "100%", height: "80%" }}>
-            <Outlet />
-            <div className="w-full h-[100px]"></div>
-          </Scrollbars>
+          {/* <Scrollbars style={{ width: "100%", height: "100%" }}> */}
+          <Outlet />
+          <div className="w-full h-[100px]"></div>
+          {/* </Scrollbars> */}
           {/* <div className="w-full h-[500px]"></div> */}
         </div>
         <div className="w-[329px] flex-none border border-green-500 hidden 1600:flex animate-slide-left">

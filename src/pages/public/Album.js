@@ -2,14 +2,22 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import * as apis from "../../apis";
 import moment from "moment/moment";
-import { ListSongs } from "../../components";
+import { ListSongs, AudioLoading } from "../../components";
 import Scrollbars from "react-custom-scrollbars-2";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../../redux/actions";
+import icons from "../../utils/icons";
+
+const { BsFillPlayFill } = icons;
+
 const Album = () => {
   const { title, pid } = useParams();
   const [playlistData, setPlaylistData] = useState(null);
   const dispatch = useDispatch();
+  const { currentSongId, isPlaying, songs } = useSelector(
+    (state) => state.music
+  );
+  console.log(isPlaying);
 
   useEffect(() => {
     const fetchDetailPlaylist = async () => {
@@ -25,11 +33,30 @@ const Album = () => {
   return (
     <div className="flex gap-8 w-full h-full px-[59px]">
       <div className="flex-none w-1/3 border border-red-500 flex flex-col items-center gap-3">
-        <img
-          src={playlistData?.thumbnailM}
-          alt="thumbnail"
-          className="w-full object-contain shadow-md rounded-md"
-        />
+        <div className="w-full relative overflow-hidden">
+          <img
+            src={playlistData?.thumbnailM}
+            alt="thumbnail"
+            className={`w-full object-contain shadow-md ${
+              isPlaying
+                ? "rounded-full animate-rotate-center"
+                : "rounded-md animate-rotate-center-pause"
+            }`}
+          />
+          <div
+            className={`absolute top-0 left-0 right-0 bottom-0  hover:bg-overlay-30 flex items-center justify-center ${
+              isPlaying && "rounded-full bg-overlay-30"
+            }`}
+          >
+            <span className="p-3 border border-white rounded-full">
+              {isPlaying ? (
+                <AudioLoading />
+              ) : (
+                <BsFillPlayFill size={30} color="white" />
+              )}
+            </span>
+          </div>
+        </div>
         <div className="flex flex-col items-center ">
           <h3 className="text-[20px] font-bold text-gray-800">
             {playlistData?.title}
@@ -48,7 +75,7 @@ const Album = () => {
           )}K người yêu thích`}</span>
         </div>
       </div>
-      <Scrollbars style={{ width: "100%", height: "80%" }}>
+      <Scrollbars style={{ width: "100%", height: "85%" }}>
         <div className="flex-auto  ">
           <span className="text-sm">
             <span className="text-gray-500">Lời tựa </span>

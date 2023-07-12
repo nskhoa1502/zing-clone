@@ -5,6 +5,7 @@ import icons from "../utils/icons";
 import * as actions from "../redux/actions";
 import moment from "moment";
 import { toast } from "react-toastify";
+import LoadingSong from "./LoadingSong";
 
 const {
   AiFillHeart,
@@ -33,11 +34,13 @@ const Player = () => {
   const [currentSecond, setCurrentSecond] = useState(0);
   const [isShuffle, setIsShuffle] = useState(false);
   const [repeatMode, setRepeatMode] = useState(0);
+  const [isLoadedSource, setIsLoadedSource] = useState(true);
 
   useEffect(() => {
     const fetchDetailSong = async () => {
       // setCurrentSecond(0); // Reset currentSecond
       // thumbRef.current.style.cssText = `right: 100%`; // Reset thumbRef position
+      setIsLoadedSource(false);
 
       const [res1, res2] = await Promise.all([
         apis.apiGetDetailSong(currentSongId),
@@ -47,6 +50,7 @@ const Player = () => {
       try {
         if (res1?.data.err === 0) {
           setSongInfo(res1?.data?.data);
+
           // console.log(res1?.data?.data);
         }
 
@@ -54,6 +58,7 @@ const Player = () => {
           // audio.pause();
 
           setAudio(new Audio(`${res2?.data?.data["128"]}`));
+          setIsLoadedSource(true);
 
           dispatch(actions.error(null));
           // dispatch(actions.play(true));
@@ -63,6 +68,7 @@ const Player = () => {
           setAudio(new Audio());
           dispatch(actions.play(false));
           dispatch(actions.error(res2?.data));
+          setIsLoadedSource(true);
           if (thumbRef.current) {
             thumbRef.current.style.cssText = `right: 100%`;
           }
@@ -255,11 +261,14 @@ const Player = () => {
             className="p-1 border cursor-pointer border-gray-700 hover:text-main-500 rounded-full"
             onClick={handleTogglePlayMusic}
           >
-            {isPlaying ? (
+            {!isLoadedSource ? (
+              <LoadingSong />
+            ) : isPlaying ? (
               <BsFillPauseFill size={30} />
             ) : (
               <BsFillPlayFill size={30} />
             )}
+            {}
           </span>
           <span
             className={`${!songs ? "text-gray-500" : "cursor-pointer"}`}
