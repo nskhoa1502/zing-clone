@@ -40,25 +40,22 @@ const Player = ({ setIsShowRightBar }) => {
   const [repeatMode, setRepeatMode] = useState(0);
   const [isLoadedSource, setIsLoadedSource] = useState(true);
   const [volume, setVolume] = useState(50);
+  const volumeRef = useRef(50);
 
   // console.log("rerender");
-
-  useEffect(() => {
-    audio.volume = volume / 100;
-  }, [audio, volume]);
 
   useEffect(() => {
     const fetchDetailSong = async () => {
       // setCurrentSecond(0); // Reset currentSecond
       // thumbRef.current.style.cssText = `right: 100%`; // Reset thumbRef position
-      setIsLoadedSource(false);
-
-      const [res1, res2] = await Promise.all([
-        apis.apiGetDetailSong(currentSongId),
-        apis.apiGetSong(currentSongId),
-      ]);
-
       try {
+        currentSongId && setIsLoadedSource(false);
+
+        const [res1, res2] = await Promise.all([
+          apis.apiGetDetailSong(currentSongId),
+          apis.apiGetSong(currentSongId),
+        ]);
+
         if (res1?.data.err === 0) {
           setSongInfo(res1?.data?.data);
 
@@ -98,6 +95,8 @@ const Player = ({ setIsShowRightBar }) => {
     let intervalId;
     // audio.pause();
 
+    // console.log(audio.currentTime);
+
     if (isPlaying) {
       audio.load();
       audio.play().catch((error) => {
@@ -111,7 +110,7 @@ const Player = ({ setIsShowRightBar }) => {
           thumbRef.current.style.cssText = `right: ${100 - percent}%`;
         }
         setCurrentSecond(Math.round(audio.currentTime));
-        // console.log(percent);
+        console.log(percent);
       }, 200);
     } else {
       audio.pause();
@@ -124,7 +123,7 @@ const Player = ({ setIsShowRightBar }) => {
         // audio.currentTime = 0;
       }
     };
-  }, [audio, isPlaying]);
+  }, [audio]);
 
   useEffect(() => {
     audio.onended = () => {
@@ -133,15 +132,19 @@ const Player = ({ setIsShowRightBar }) => {
       setCurrentSecond(0);
       thumbRef.current.style.cssText = `right: 100%`;
 
-      if (isShuffle) {
-        handleShuffle();
-      } else if (repeatMode) {
+      if (repeatMode) {
         repeatMode === 1 ? handleNextSong() : handleRepeatOne();
+      } else if (isShuffle) {
+        handleShuffle();
       } else {
         handleNextSong();
       }
     };
   }, [audio, dispatch, isShuffle, repeatMode]);
+
+  useEffect(() => {
+    audio.volume = volume / 100;
+  }, [audio, volume]);
 
   const handleTogglePlayMusic = () => {
     if (isPlaying) {
@@ -160,8 +163,9 @@ const Player = ({ setIsShowRightBar }) => {
         thumbRef.current.style.cssText = `right: ${100 - percent}%`;
       }
       setCurrentSecond(Math.round(audio.currentTime));
-      // console.log(audio.currentTime);
+      console.log(audio.currentTime);
     }
+    // console.log(audio.currentTime);
   };
 
   // console.log(audio.currentTime);
@@ -230,6 +234,15 @@ const Player = ({ setIsShowRightBar }) => {
     // console.log(e.target.value);
     setVolume(e.target.value);
     audio.volume = e.target.value / 100;
+  };
+
+  const handleVolumeIconClick = () => {
+    if (volume === 0) {
+      setVolume(volumeRef.current); // restore to the previous volume
+    } else {
+      volumeRef.current = volume; // store the current volume
+      setVolume(0); // mute
+    }
   };
   return (
     <div className="bg-main-400 px-5 h-full flex">
@@ -343,7 +356,7 @@ const Player = ({ setIsShowRightBar }) => {
       </div>
       <div className="w-[30%] flex-auto border border-red-500 flex items-center justify-end gap-4">
         <div className="flex gap-2 items-center">
-          <span onClick={() => setVolume((prev) => (+prev === 0 ? 50 : 0))}>
+          <span onClick={handleVolumeIconClick}>
             {+volume >= 50 ? (
               <SlVolume2 />
             ) : +volume === 0 ? (
