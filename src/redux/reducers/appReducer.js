@@ -2,6 +2,7 @@ import actionTypes from "../actions/actionTypes";
 
 const initialState = {
   banner: [],
+  editorTheme: {},
 };
 
 const appReducer = (state = initialState, action) => {
@@ -11,8 +12,11 @@ const appReducer = (state = initialState, action) => {
       return {
         ...state,
         banner:
-          action.homeData?.find((item) => item.sectionType === "banner")
+          action.homeData?.find((item) => item.sectionId === "hSlider")
             ?.items || null,
+        editorTheme:
+          action.homeData?.find((item) => item.sectionId === "hEditorTheme") ||
+          {},
       };
 
     default:

@@ -1,6 +1,7 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import { Header, Player, SidebarLeft, SidebarRight } from "../../components";
+import Scrollbars from "react-custom-scrollbars-2";
 
 const Public = () => {
   return (
@@ -10,10 +11,14 @@ const Public = () => {
           <SidebarLeft />
         </div>
         <div className="flex-auto border border-red-500 ">
-          <div className="h-[70px] px-[59px] flex items-center mb-5 ">
+          <div className="h-[70px] px-[59px] flex items-center  ">
             <Header />
           </div>
-          <Outlet />
+          <Scrollbars style={{ width: "100%", height: "80%" }}>
+            <Outlet />
+            <div className="w-full h-[100px]"></div>
+          </Scrollbars>
+          {/* <div className="w-full h-[500px]"></div> */}
         </div>
         <div className="w-[329px] flex-none border border-green-500 hidden 1600:flex animate-slide-left">
           <SidebarRight />

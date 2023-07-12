@@ -16,6 +16,7 @@ const {
   BsFillPauseFill,
   BsFillPlayFill,
   CiShuffle,
+  BsRepeat1,
 } = icons;
 
 const Player = () => {
@@ -31,6 +32,7 @@ const Player = () => {
   const dispatch = useDispatch();
   const [currentSecond, setCurrentSecond] = useState(0);
   const [isShuffle, setIsShuffle] = useState(false);
+  const [repeatMode, setRepeatMode] = useState(0);
 
   useEffect(() => {
     const fetchDetailSong = async () => {
@@ -52,9 +54,9 @@ const Player = () => {
           // audio.pause();
 
           setAudio(new Audio(`${res2?.data?.data["128"]}`));
+
           dispatch(actions.error(null));
           // dispatch(actions.play(true));
-          // audio.load();
         }
         if (res2?.data.err !== 0) {
           audio.pause();
@@ -77,8 +79,10 @@ const Player = () => {
 
   useEffect(() => {
     let intervalId;
+    // audio.pause();
 
     if (isPlaying) {
+      audio.load();
       audio.play().catch((error) => {
         console.error("Error playing audio:", error);
         // dispatch(actions.play(false));
@@ -105,6 +109,23 @@ const Player = () => {
     };
   }, [audio, isPlaying]);
 
+  useEffect(() => {
+    audio.onended = () => {
+      // console.log("ended");
+      audio.currentTime = 0;
+      setCurrentSecond(0);
+      thumbRef.current.style.cssText = `right: 100%`;
+
+      if (isShuffle) {
+        handleShuffle();
+      } else if (repeatMode) {
+        repeatMode === 1 ? handleNextSong() : handleRepeatOne();
+      } else {
+        handleNextSong();
+      }
+    };
+  }, [audio, dispatch, isShuffle, repeatMode]);
+
   const handleTogglePlayMusic = () => {
     if (isPlaying) {
       audio.pause();
@@ -130,7 +151,7 @@ const Player = () => {
     let percent =
       Math.round(((e.clientX - trackRect.left) * 10000) / trackRect.width) /
       100;
-    console.log(percent);
+    // console.log(percent);
     thumbRef.current.style.cssText = `right: ${100 - percent}%`;
     audio.currentTime = (percent * songInfo.duration) / 100;
     setCurrentSecond(
@@ -145,8 +166,16 @@ const Player = () => {
         if (item.encodeId === currentSongId) currentSongIndex = index;
       });
       // console.log(currentSongIndex);
-      dispatch(actions.setCurrentSongId(songs[currentSongIndex + 1].encodeId));
-      dispatch(actions.play(true));
+      if (repeatMode && currentSongIndex === +songs?.length - 1) {
+        // console.log("here");
+        dispatch(actions.setCurrentSongId(songs[0].encodeId));
+        dispatch(actions.play(true));
+      } else {
+        dispatch(
+          actions.setCurrentSongId(songs[currentSongIndex + 1].encodeId)
+        );
+        dispatch(actions.play(true));
+      }
     }
   };
   const handlePrevSong = () => {
@@ -161,7 +190,20 @@ const Player = () => {
     }
   };
 
-  const handleShuffle = () => {};
+  const handleShuffle = () => {
+    if (songs) {
+      const randomIndex = Math.round(Math.random() * songs?.length) - 1;
+      dispatch(actions.setCurrentSongId(songs[randomIndex].encodeId));
+      dispatch(actions.play(true));
+    }
+  };
+
+  const handleRepeatOne = () => {
+    audio.currentTime = 0;
+    setCurrentSecond(0);
+    thumbRef.current.style.cssText = `right: 100%`;
+    audio.play();
+  };
 
   return (
     <div className="bg-main-400 px-5 h-full flex">
@@ -193,9 +235,13 @@ const Player = () => {
         {error && <span className="text-red-500 text-md">{error?.msg}</span>}
         <div className="flex gap-8 justify-center items-center">
           <span
-            className={`cursor-pointer ${isShuffle && "text-purple-600"}`}
+            className={`cursor-pointer hover:text-purple-600 ${
+              isShuffle && "text-purple-600"
+            }`}
             title="Bật phát ngẫu nhiên"
-            onClick={() => setIsShuffle((prev) => !prev)}
+            onClick={() => {
+              setIsShuffle((prev) => !prev);
+            }}
           >
             <CiShuffle size={24} />
           </span>
@@ -221,8 +267,24 @@ const Player = () => {
           >
             <MdSkipNext size={24} />
           </span>
-          <span className="cursor-pointer" title="Bật phát lại tất cả">
-            <CiRepeat size={24} />
+          <span
+            className={`cursor-pointer ${
+              repeatMode && "text-purple-600"
+            } hover:text-purple-600`}
+            title={
+              repeatMode === 0
+                ? "Bật phát lại tất cả"
+                : repeatMode === 1
+                ? "Bật phát lại 1 bài"
+                : "Tắt bật phát lại"
+            }
+            onClick={() => setRepeatMode((prev) => (prev === 2 ? 0 : prev + 1))}
+          >
+            {repeatMode === 2 ? (
+              <BsRepeat1 size={24} />
+            ) : (
+              <CiRepeat size={24} />
+            )}
           </span>
         </div>
         {!error && (

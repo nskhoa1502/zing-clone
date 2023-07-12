@@ -8,7 +8,7 @@ const Slider = () => {
   const { banner } = useSelector((state) => state.app);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  console.log(banner.data);
+  // console.log(banner.data);
 
   useEffect(() => {
     const sliderEls = document.getElementsByClassName("slider-item");
@@ -91,7 +91,7 @@ const Slider = () => {
   };
 
   return (
-    <div className="  w-full overflow-hidden  px-[59px]">
+    <div className="  w-full overflow-hidden  px-[59px] mt-5">
       <div className="flex gap-6">
         {banner?.map((item, index) => (
           <img
