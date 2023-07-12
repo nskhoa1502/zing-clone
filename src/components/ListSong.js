@@ -1,18 +1,21 @@
 import React, { memo } from "react";
 import icons from "../utils/icons";
 import moment from "moment";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../redux/actions";
 
 const { BsMusicNoteBeamed } = icons;
 
 const ListSong = ({ songData }) => {
+  const { songs } = useSelector((state) => state.music);
   const dispatch = useDispatch();
+
   return (
     <div
       onClick={() => {
         dispatch(actions.setCurrentSongId(songData?.encodeId));
         dispatch(actions.play(true));
+        dispatch(actions.playAlbum(true));
       }}
       className="flex justify-between items-center p-[10px] border-t border-[rgba(0,0,0,0.05)] hover:bg-main-200 cursor-pointer"
     >

@@ -4,6 +4,8 @@ const initialState = {
   currentSongId: null,
   isPlaying: false,
   error: null,
+  atAlbum: false,
+  songs: null,
 };
 
 const musicReducer = (state = initialState, action) => {
@@ -22,6 +24,16 @@ const musicReducer = (state = initialState, action) => {
       return {
         ...state,
         error: action.errData,
+      };
+    case actionTypes.SET_ALBUM:
+      return {
+        ...state,
+        atAlbum: action.flag,
+      };
+    case actionTypes.PLAYLIST:
+      return {
+        ...state,
+        songs: action.songs || null,
       };
     default:
       return state;

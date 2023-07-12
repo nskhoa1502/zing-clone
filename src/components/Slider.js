@@ -8,7 +8,7 @@ const Slider = () => {
   const { banner } = useSelector((state) => state.app);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // console.log(banner);
+  console.log(banner.data);
 
   useEffect(() => {
     const sliderEls = document.getElementsByClassName("slider-item");
@@ -77,12 +77,16 @@ const Slider = () => {
     // console.log(item.encodeId);
     if (item?.type === 1) {
       dispatch(actions.setCurrentSongId(item?.encodeId));
+      dispatch(actions.setPlaylist(null));
       dispatch(actions.play(true));
     } else if (item?.type === 4) {
-      console.log(item);
+      // console.log(item);
+
       const albumPath = item?.link.split(".")[0];
-      console.log(albumPath);
+      // console.log(albumPath);
       navigate(albumPath);
+    } else {
+      dispatch(actions.setPlaylist(null));
     }
   };
 

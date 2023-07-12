@@ -1,8 +1,10 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as apis from "../apis";
 import icons from "../utils/icons";
 import * as actions from "../redux/actions";
+import moment from "moment";
+import { toast } from "react-toastify";
 
 const {
   AiFillHeart,
@@ -17,24 +19,24 @@ const {
 } = icons;
 
 const Player = () => {
-  const audioEl = useRef(new Audio());
-  const { currentSongId, isPlaying, error } = useSelector(
+  const [audio, setAudio] = useState(new Audio());
+  const { currentSongId, isPlaying, error, songs } = useSelector(
     (state) => state.music
   );
-  // console.log(currentSongId);
-  const [songInfo, setSongInfo] = useState(null);
-  const [source, setSource] = useState(null);
-  const dispatch = useDispatch();
-  // const [isPlaying, setIsPlaying] = useState(false);
-  // const audioEl = new Audio();
-  // console.log(isPlaying);
 
-  // console.log(audioEl);
-  // console.log(currentSongId);
-  // console.log(error);
+  // console.log(isPlaying);
+  const [songInfo, setSongInfo] = useState(null);
+  const thumbRef = useRef();
+  const trackRef = useRef();
+  const dispatch = useDispatch();
+  const [currentSecond, setCurrentSecond] = useState(0);
+  const [isShuffle, setIsShuffle] = useState(false);
 
   useEffect(() => {
     const fetchDetailSong = async () => {
+      // setCurrentSecond(0); // Reset currentSecond
+      // thumbRef.current.style.cssText = `right: 100%`; // Reset thumbRef position
+
       const [res1, res2] = await Promise.all([
         apis.apiGetDetailSong(currentSongId),
         apis.apiGetSong(currentSongId),
@@ -43,19 +45,27 @@ const Player = () => {
       try {
         if (res1?.data.err === 0) {
           setSongInfo(res1?.data?.data);
+          // console.log(res1?.data?.data);
         }
 
         if (res2?.data.err === 0) {
-          setSource(`${res2?.data?.data["128"]}`);
-          dispatch(actions.error(null));
+          // audio.pause();
 
-          // console.log(res2?.data?.data);
+          setAudio(new Audio(`${res2?.data?.data["128"]}`));
+          dispatch(actions.error(null));
+          // dispatch(actions.play(true));
+          // audio.load();
         }
         if (res2?.data.err !== 0) {
-          setSource(``);
-          // console.log(res2?.data);
+          audio.pause();
+          setAudio(new Audio());
           dispatch(actions.play(false));
           dispatch(actions.error(res2?.data));
+          if (thumbRef.current) {
+            thumbRef.current.style.cssText = `right: 100%`;
+          }
+
+          toast.warn(res2?.data.msg);
         }
       } catch (error) {
         console.error(error);
@@ -66,41 +76,103 @@ const Player = () => {
   }, [currentSongId]);
 
   useEffect(() => {
-    audioEl.current.src = source;
-    if (isPlaying && source) {
-      // Add a check for source
-      audioEl.current.play().catch((error) => {
+    let intervalId;
+
+    if (isPlaying) {
+      audio.play().catch((error) => {
         console.error("Error playing audio:", error);
-        dispatch(actions.play(false));
+        // dispatch(actions.play(false));
       });
+      intervalId = setInterval(() => {
+        let percent =
+          Math.round((audio.currentTime * 10000) / songInfo?.duration) / 100;
+        if (thumbRef.current) {
+          thumbRef.current.style.cssText = `right: ${100 - percent}%`;
+        }
+        setCurrentSecond(Math.round(audio.currentTime));
+        // console.log(percent);
+      }, 200);
     } else {
-      audioEl.current.pause();
+      audio.pause();
     }
-  }, [currentSongId, source, isPlaying]);
+
+    return () => {
+      clearInterval(intervalId);
+      if (audio) {
+        audio.pause();
+        // audio.currentTime = 0;
+      }
+    };
+  }, [audio, isPlaying]);
 
   const handleTogglePlayMusic = () => {
     if (isPlaying) {
-      audioEl.current.pause();
+      audio.pause();
       dispatch(actions.play(false));
-    } else if (source) {
-      // Add a check for source
-      audioEl.current.play().catch((error) => {
+    } else {
+      audio.play().catch((error) => {
         console.error("Error playing audio:", error);
-        dispatch(actions.play(false));
+        dispatch(actions.play(true));
       });
+      dispatch(actions.play(true));
+      let percent =
+        Math.round((audio.currentTime * 10000) / songInfo?.duration) / 100;
+      if (thumbRef.current) {
+        thumbRef.current.style.cssText = `right: ${100 - percent}%`;
+      }
+      setCurrentSecond(Math.round(audio.currentTime));
+    }
+  };
+
+  const handleClickProgress = (e) => {
+    // console.log(trackRef.current.getBoundingClientRect());
+    const trackRect = trackRef.current.getBoundingClientRect();
+    let percent =
+      Math.round(((e.clientX - trackRect.left) * 10000) / trackRect.width) /
+      100;
+    console.log(percent);
+    thumbRef.current.style.cssText = `right: ${100 - percent}%`;
+    audio.currentTime = (percent * songInfo.duration) / 100;
+    setCurrentSecond(
+      Math.round(((e.clientX - trackRect.left) * 10000) / trackRect.width) / 100
+    );
+  };
+
+  const handleNextSong = () => {
+    if (songs) {
+      let currentSongIndex;
+      songs?.forEach((item, index) => {
+        if (item.encodeId === currentSongId) currentSongIndex = index;
+      });
+      // console.log(currentSongIndex);
+      dispatch(actions.setCurrentSongId(songs[currentSongIndex + 1].encodeId));
       dispatch(actions.play(true));
     }
   };
+  const handlePrevSong = () => {
+    if (songs) {
+      let currentSongIndex;
+      songs?.forEach((item, index) => {
+        if (item.encodeId === currentSongId) currentSongIndex = index;
+      });
+      // console.log(currentSongIndex);
+      dispatch(actions.setCurrentSongId(songs[currentSongIndex - 1].encodeId));
+      dispatch(actions.play(true));
+    }
+  };
+
+  const handleShuffle = () => {};
+
   return (
-    <div className="bg-main-400 px-5 h-full flex ">
-      <div className="w-[30%] flex-auto flex items-center gap-3 ">
+    <div className="bg-main-400 px-5 h-full flex">
+      <div className="w-[30%] flex-auto flex items-center gap-3">
         <img
           src={songInfo?.thumbnail}
           alt="thumbnail"
           className="w-24 h-16 object-cover rounded-md"
         />
 
-        <div className="flex flex-col ">
+        <div className="flex flex-col">
           <span className="font-semibold text-gray-700 text-[14px]">
             {songInfo?.title}
           </span>
@@ -118,11 +190,19 @@ const Player = () => {
         </div>
       </div>
       <div className="w-[40%] flex-auto flex flex-col items-center justify-center border border-red-500 gap-2">
-        <div className="flex gap-8 justify-center items-center  ">
-          <span className="cursor-pointer" title="Bật phát ngẫu nhiên">
+        {error && <span className="text-red-500 text-md">{error?.msg}</span>}
+        <div className="flex gap-8 justify-center items-center">
+          <span
+            className={`cursor-pointer ${isShuffle && "text-purple-600"}`}
+            title="Bật phát ngẫu nhiên"
+            onClick={() => setIsShuffle((prev) => !prev)}
+          >
             <CiShuffle size={24} />
           </span>
-          <span className="cursor-pointer">
+          <span
+            className={`${!songs ? "text-gray-500" : "cursor-pointer"}`}
+            onClick={handlePrevSong}
+          >
             <MdSkipPrevious size={24} />
           </span>
           <span
@@ -135,17 +215,40 @@ const Player = () => {
               <BsFillPlayFill size={30} />
             )}
           </span>
-          <span className="cursor-pointer">
+          <span
+            className={`${!songs ? "text-gray-500" : "cursor-pointer"}`}
+            onClick={handleNextSong}
+          >
             <MdSkipNext size={24} />
           </span>
           <span className="cursor-pointer" title="Bật phát lại tất cả">
             <CiRepeat size={24} />
           </span>
         </div>
-        <div className="flex flex-col">
-          {error && <span className="text-red-500 text-xs">{error?.msg}</span>}
-          {!error && "Progress bar"}
-        </div>
+        {!error && (
+          <>
+            <div className="w-full text-sm text-center">
+              <div className="w-full flex justify-center gap-2 items-center ">
+                <span className="">
+                  {moment.utc(currentSecond * 1000).format("mm:ss")}
+                </span>
+                <div
+                  ref={trackRef}
+                  onClick={(e) => handleClickProgress(e)}
+                  className="w-3/5 h-[3px] hover:h-[8px] cursor-pointer rounded-l-full rounded-r-full relative bg-[rgba(0,0,0,0.1)]"
+                >
+                  <div
+                    ref={thumbRef}
+                    className="absolute top-0 left-0 bottom-0   rounded-l-full rounded-r-full  bg-[#0e8080]"
+                  ></div>
+                </div>
+                <span>
+                  {moment.utc(songInfo?.duration * 1000).format("mm:ss")}
+                </span>
+              </div>
+            </div>
+          </>
+        )}
       </div>
       <div className="w-[30%] flex-auto border border-red-500">volume</div>
     </div>
