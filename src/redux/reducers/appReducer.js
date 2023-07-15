@@ -10,6 +10,7 @@ const initialState = {
   h100: {},
   hAlbum: {},
   isLoading: false,
+  newReleases: {},
 };
 
 const appReducer = (state = initialState, action) => {
@@ -39,6 +40,9 @@ const appReducer = (state = initialState, action) => {
         h100: action.homeData?.find((item) => item.sectionId === "h100") || {},
         hAlbum:
           action.homeData?.find((item) => item.sectionId === "hAlbum") || {},
+        newReleases:
+          action.homeData?.find((item) => item.sectionType === "new-release") ||
+          {},
       };
 
     case actionTypes.LOADING:

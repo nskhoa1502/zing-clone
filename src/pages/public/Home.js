@@ -1,5 +1,5 @@
 import React from "react";
-import { Header, Section, Slider } from "../../components";
+import { Header, NewReleases, Section, Slider } from "../../components";
 import * as apis from "../../apis";
 import { useSelector } from "react-redux";
 
@@ -17,6 +17,7 @@ const Home = () => {
   return (
     <div className="overflow-y-auto w-full">
       <Slider />
+      <NewReleases />
       <Section editorTheme={editorTheme} />
       <Section editorTheme={editorTheme2} />
       <Section editorTheme={editorTheme3} />

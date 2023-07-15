@@ -10,3 +10,5 @@ export { default as Section } from "./Section";
 export { default as AudioLoading } from "./AudioLoading";
 export { default as LoadingSong } from "./LoadingSong";
 export { default as AppLoading } from "./AppLoading";
+export { default as SongItem } from "./SongItem";
+export { default as NewReleases } from "./NewReleases";
