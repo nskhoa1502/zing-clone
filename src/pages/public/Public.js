@@ -21,14 +21,16 @@ const Public = () => {
         <div className="w-[240px] h-full flex-none border  border-blue-500">
           <SidebarLeft />
         </div>
-        <div className="flex-auto border border-red-500 ">
+        <div className="flex-auto flex flex-col border border-red-500 ">
           <div className="h-[70px] px-[59px] flex items-center  ">
             <Header />
           </div>
-          {/* <Scrollbars style={{ width: "100%", height: "100%" }}> */}
-          <Outlet />
-          <div className="w-full h-[100px]"></div>
-          {/* </Scrollbars> */}
+          <div className="flex-auto w-full">
+            <Scrollbars style={{ width: "100%", height: "100%" }}>
+              <Outlet />
+              <div className="w-full h-[100px]"></div>
+            </Scrollbars>
+          </div>
           {/* <div className="w-full h-[500px]"></div> */}
         </div>
         {isShowRightBar && (

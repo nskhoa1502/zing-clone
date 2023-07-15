@@ -3,6 +3,9 @@ import actionTypes from "../actions/actionTypes";
 const initialState = {
   banner: [],
   editorTheme: {},
+  edithorTheme2: {},
+  edithorTheme3: {},
+  edithorTheme4: {},
 };
 
 const appReducer = (state = initialState, action) => {
@@ -16,6 +19,15 @@ const appReducer = (state = initialState, action) => {
             ?.items || null,
         editorTheme:
           action.homeData?.find((item) => item.sectionId === "hEditorTheme") ||
+          {},
+        editorTheme2:
+          action.homeData?.find((item) => item.sectionId === "hEditorTheme2") ||
+          {},
+        editorTheme3:
+          action.homeData?.find((item) => item.sectionId === "hEditorTheme3") ||
+          {},
+        editorTheme4:
+          action.homeData?.find((item) => item.sectionId === "hEditorTheme4") ||
           {},
       };
 

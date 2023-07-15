@@ -2,8 +2,7 @@ import React, { memo } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-const Section = () => {
-  const { editorTheme } = useSelector((state) => state.app);
+const Section = ({ editorTheme }) => {
   const navigate = useNavigate();
   console.log(editorTheme);
 
@@ -35,8 +34,12 @@ const Section = () => {
                 />
               </div>
               <span className="flex flex-col">
-                <span className="font-semibold">{item?.title}</span>
-                <span>{`${item?.sortDescription?.slice(0, 40)}...`}</span>
+                <span className="font-semibold">
+                  {item?.title?.length < 20
+                    ? item?.title
+                    : `${item?.title?.slice(0, 20)}...`}
+                </span>
+                <span>{`${item?.sortDescription?.slice(0, 25)}...`}</span>
               </span>
             </div>
           ))}
