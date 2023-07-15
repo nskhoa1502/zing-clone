@@ -8,7 +8,7 @@ const Section = ({ editorTheme, title }) => {
 
   const handleThemeClick = (item) => {
     const albumPath = item?.link.split(".")[0];
-    // navigate(albumPath);
+    navigate(albumPath);
     // console.log(albumPath);
   };
   return (

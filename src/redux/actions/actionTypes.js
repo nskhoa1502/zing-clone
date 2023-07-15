@@ -7,6 +7,7 @@ const actionTypes = {
   ERROR: "ERROR",
   SET_ALBUM: "SET_ALBUM",
   PLAYLIST: "PLAYLIST",
+  LOADING: "LOADING",
 };
 
 export default actionTypes;

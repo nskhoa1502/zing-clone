@@ -9,6 +9,7 @@ const initialState = {
   artistTheme: {},
   h100: {},
   hAlbum: {},
+  isLoading: false,
 };
 
 const appReducer = (state = initialState, action) => {
@@ -40,6 +41,11 @@ const appReducer = (state = initialState, action) => {
           action.homeData?.find((item) => item.sectionId === "hAlbum") || {},
       };
 
+    case actionTypes.LOADING:
+      return {
+        ...state,
+        isLoading: action.flag,
+      };
     default:
       return state;
   }
