@@ -26,11 +26,11 @@ const Section = ({ editorTheme, title }) => {
               className="flex flex-col gap-3 w-[19%] text-sm h-full cursor-pointer justify-start"
               onClick={() => handleThemeClick(item)}
             >
-              <div className="w-full flex items-center ">
+              <div className="w-full flex items-center overflow-hidden">
                 <img
                   src={item?.thumbnailM}
                   alt="avatar"
-                  className="w-full object-contain "
+                  className="w-full object-contain hover:animate-scale-up-center"
                 />
               </div>
               <span className="flex flex-col">

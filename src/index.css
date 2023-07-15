@@ -1,3 +1,40 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+button.slick-next {
+  right: 5px;
+  top: 60px;
+  /* bottom: 50%; */
+  z-index: 30;
+  /* background-color: rgba(212, 212, 212, 0.245); */
+}
+button.slick-next:before {
+  color: gray;
+  content: "\276F";
+  background-color: white;
+  border-radius: 50%;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+}
+button.slick-prev {
+  left: -10px;
+  top: 60px;
+  z-index: 30;
+}
+button.slick-prev:before {
+  color: gray;
+  content: "\276E";
+  background-color: white;
+  border-radius: 50%;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+}

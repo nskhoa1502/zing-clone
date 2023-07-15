@@ -1,10 +1,19 @@
 import React, { memo } from "react";
 import moment from "moment";
 import "moment/locale/vi";
+import * as actions from "../redux/actions";
+import { useDispatch } from "react-redux";
 
-const SongItem = ({ thumbnail, title, artists, releaseDate }) => {
+const SongItem = ({ thumbnail, title, artists, sid, releaseDate }) => {
+  const dispatch = useDispatch();
   return (
-    <div className="w-1/3 flex gap-[10px] flex-none justify-start border border-red-500 p-[10px] items-center hover:bg-main-200 rounded-md cursor-pointer">
+    <div
+      onClick={() => {
+        dispatch(actions.setCurrentSongId(sid));
+        dispatch(actions.play(true));
+      }}
+      className="w-1/2 lg:w-1/3 flex gap-[10px] flex-none justify-start border border-red-500 p-[10px] items-center hover:bg-main-200 rounded-md cursor-pointer"
+    >
       <img
         src={thumbnail}
         alt="thumbnail"

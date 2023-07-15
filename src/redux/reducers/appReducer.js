@@ -11,6 +11,8 @@ const initialState = {
   hAlbum: {},
   isLoading: false,
   newReleases: {},
+  weekChart: {},
+  rankNewSongs: {},
 };
 
 const appReducer = (state = initialState, action) => {
@@ -42,6 +44,12 @@ const appReducer = (state = initialState, action) => {
           action.homeData?.find((item) => item.sectionId === "hAlbum") || {},
         newReleases:
           action.homeData?.find((item) => item.sectionType === "new-release") ||
+          {},
+        weekChart:
+          action.homeData?.find((item) => item.sectionType === "weekChart") ||
+          {},
+        rankNewSongs:
+          action.homeData?.find((item) => item.sectionId === "hNewrelease") ||
           {},
       };
 

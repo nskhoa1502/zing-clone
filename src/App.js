@@ -1,7 +1,7 @@
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Routes, Route } from "react-router-dom";
-import { Album, Home, Login, Personal, Public } from "./pages/public";
+import { Album, Home, Login, Personal, Public, WeekRank } from "./pages/public";
 import path from "./utils/path";
 import { useEffect } from "react";
 import * as actions from "./redux/actions";
@@ -24,6 +24,7 @@ function App() {
             <Route path={path.STAR} element={<Home />} />
             <Route path={path.ALBUM__TITLE__PID} element={<Album />} />
             <Route path={path.PLAYLIST__TITLE__PID} element={<Album />} />
+            <Route path={path.WEEKRANK__TITLE__PID} element={<WeekRank />} />
           </Route>
         </Routes>
       </div>

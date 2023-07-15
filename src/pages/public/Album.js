@@ -68,7 +68,9 @@ const Album = () => {
           <span className="flex gap-2 items-center text-gray-500 text-xs">
             <span>Cập nhật:</span>
             <span>
-              {moment.unix(playlistData?.contentLastUpdate).format("DD/MM/YYY")}
+              {moment
+                .unix(playlistData?.contentLastUpdate)
+                .format("DD/MM/YYYY")}
             </span>
           </span>
           <span className="flex justify-center text-gray-500 text-xs">

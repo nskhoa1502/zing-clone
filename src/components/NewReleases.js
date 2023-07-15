@@ -6,6 +6,7 @@ const NewReleases = () => {
   const { newReleases } = useSelector((state) => state.app);
   const [isActive, setIsActive] = useState(0);
   const [songs, setSongs] = useState([]);
+  //   console.log(songs);
 
   useEffect(() => {
     if (isActive === 0) {
@@ -15,7 +16,7 @@ const NewReleases = () => {
     } else {
       setSongs(newReleases?.items?.others);
     }
-  }, [isActive]);
+  }, [isActive, JSON.stringify(newReleases)]);
   return (
     <div className="mt-[48px] px-[59px] flex flex-col gap-5">
       <div className="flex items-center justify-between">
@@ -60,6 +61,7 @@ const NewReleases = () => {
               title={item?.title}
               artists={item?.artistsNames}
               releaseDate={item?.releaseDate}
+              sid={item?.encodeId}
             />
           ))}
       </div>

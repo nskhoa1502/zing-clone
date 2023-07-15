@@ -17,6 +17,17 @@ module.exports = {
         "main-300": "#ced9d9",
         "main-400": "#c0d8d8",
         "main-500": "#0e8080",
+        transparent: "transparent",
+      },
+      outlineColor: {
+        "font-outline-2": {
+          "text-stroke": "2px white",
+          "-webkit-text-stroke": "2px white",
+        },
+        "font-outline-4": {
+          "text-stroke": "4px white",
+          "-webkit-text-stroke": "4px white",
+        },
       },
       flex: {
         4: "4 4 0%",
@@ -78,12 +89,12 @@ module.exports = {
         },
         "scale-up-center": {
           "0%": {
-            "-webkit-transform": "scale(0)",
-            transform: "rotate(0)",
+            "-webkit-transform": "scale(1)",
+            transform: "rotate(1)",
           },
           "100%": {
-            "-webkit-transform": "scale(1)",
-            transform: "scale(1)",
+            "-webkit-transform": "scale(1.1)",
+            transform: "scale(1.1)",
           },
         },
       },

@@ -12,3 +12,5 @@ export { default as LoadingSong } from "./LoadingSong";
 export { default as AppLoading } from "./AppLoading";
 export { default as SongItem } from "./SongItem";
 export { default as NewReleases } from "./NewReleases";
+export { default as RankNewSongs } from "./RankNewSongs";
+export { default as WeekChart } from "./WeekChart";
