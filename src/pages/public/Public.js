@@ -14,10 +14,9 @@ import * as actions from "../../redux/actions";
 const Public = () => {
   const [isShowRightBar, setIsShowRightBar] = useState(true);
   const { currentSongId } = useSelector((state) => state.music);
+  // console.log(currentSongId);
   const { isLoading } = useSelector((state) => state.app);
   const dispatch = useDispatch();
-
-  console.log(isLoading);
 
   useEffect(() => {
     dispatch(actions.setCurrentSongId(null));
@@ -54,6 +53,7 @@ const Public = () => {
           </div>
         )}
       </div>
+
       {currentSongId && (
         <div className="fixed bottom-0 left-0 right-0 h-[90px] z-30">
           <Player setIsShowRightBar={setIsShowRightBar} />

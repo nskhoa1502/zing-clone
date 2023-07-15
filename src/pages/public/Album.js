@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import * as apis from "../../apis";
 import moment from "moment/moment";
 import { ListSongs, AudioLoading } from "../../components";
@@ -17,15 +17,13 @@ const Album = () => {
   const { currentSongId, isPlaying, songs } = useSelector(
     (state) => state.music
   );
-  const { isLoading } = useSelector((state) => state.app);
-  // console.log(isPlaying);
 
   useEffect(() => {
     const fetchDetailPlaylist = async () => {
       dispatch(actions.loading(true));
       const response = await apis.apiGetDetailPlaylist(pid);
       dispatch(actions.loading(false));
-      console.log(isLoading);
+      // console.log(isLoading);
       // console.log(response?.data.data);
       if (response?.data.err === 0) {
         setPlaylistData(response?.data?.data);
@@ -34,9 +32,10 @@ const Album = () => {
     };
     fetchDetailPlaylist(pid);
   }, [pid]);
+
   return (
-    <div className="flex gap-8 w-full h-full px-[59px] animate-scale-up-center">
-      <div className="flex-none w-1/3 border border-red-500 flex flex-col items-center gap-3">
+    <div className="flex gap-8 w-full h-full px-[59px] ">
+      <div className="flex-none w-1/3  flex flex-col items-center gap-3">
         <div className="w-full relative overflow-hidden">
           <img
             src={playlistData?.thumbnailM}
