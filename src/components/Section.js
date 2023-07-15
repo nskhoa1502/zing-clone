@@ -2,13 +2,13 @@ import React, { memo } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-const Section = ({ editorTheme }) => {
+const Section = ({ editorTheme, title }) => {
   const navigate = useNavigate();
-  console.log(editorTheme);
+  // console.log(editorTheme);
 
   const handleThemeClick = (item) => {
     const albumPath = item?.link.split(".")[0];
-    navigate(albumPath);
+    // navigate(albumPath);
     // console.log(albumPath);
   };
   return (
@@ -17,13 +17,13 @@ const Section = ({ editorTheme }) => {
         <h3 className="text-[20px] font-bold">{editorTheme?.title}</h3>
         <span className="text-xs">TẤT CẢ</span>
       </div>
-      <div className="flex items-center justify-between flex-wrap">
+      <div className="flex items-start justify-between flex-wrap">
         {editorTheme &&
           editorTheme?.items?.length > 0 &&
           editorTheme?.items?.slice(0, 5).map((item) => (
             <div
               key={item?.encodeId}
-              className="flex flex-col gap-3 w-[19%] text-sm h-full cursor-pointer"
+              className="flex flex-col gap-3 w-[19%] text-sm h-full cursor-pointer justify-start"
               onClick={() => handleThemeClick(item)}
             >
               <div className="w-full flex items-center ">
@@ -34,12 +34,31 @@ const Section = ({ editorTheme }) => {
                 />
               </div>
               <span className="flex flex-col">
-                <span className="font-semibold">
-                  {item?.title?.length < 20
-                    ? item?.title
-                    : `${item?.title?.slice(0, 20)}...`}
-                </span>
-                <span>{`${item?.sortDescription?.slice(0, 25)}...`}</span>
+                {!title && (
+                  <span className="font-semibold text-gray-600">
+                    {item?.sortDescription?.length < 50
+                      ? item?.sortDescription
+                      : `${item?.sortDescription?.slice(0, 50)}...`}
+                  </span>
+                )}
+
+                {title && (
+                  <>
+                    <span className="font-semibold">
+                      {item?.title?.length < 20
+                        ? item?.title
+                        : `${item?.title?.slice(0, 28)}...`}
+                    </span>
+                    <span>
+                      {item?.artists?.map((i) => i.name)?.join(", ").length < 40
+                        ? item?.artists?.map((i) => i.name)?.join(", ")
+                        : `${item?.artists
+                            ?.map((i) => i.name)
+                            ?.join(", ")
+                            .slice(0, 40)}...`}
+                    </span>
+                  </>
+                )}
               </span>
             </div>
           ))}

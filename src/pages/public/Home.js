@@ -4,9 +4,15 @@ import * as apis from "../../apis";
 import { useSelector } from "react-redux";
 
 const Home = () => {
-  const { editorTheme, editorTheme2, editorTheme3, editorTheme4 } = useSelector(
-    (state) => state.app
-  );
+  const {
+    editorTheme,
+    editorTheme2,
+    editorTheme3,
+    editorTheme4,
+    artistTheme,
+    h100,
+    hAlbum,
+  } = useSelector((state) => state.app);
 
   return (
     <div className="overflow-y-auto w-full">
@@ -15,6 +21,9 @@ const Home = () => {
       <Section editorTheme={editorTheme2} />
       <Section editorTheme={editorTheme3} />
       <Section editorTheme={editorTheme4} />
+      <Section editorTheme={artistTheme} />
+      <Section editorTheme={h100} title />
+      <Section editorTheme={hAlbum} title />
     </div>
   );
 };

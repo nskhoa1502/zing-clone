@@ -6,6 +6,9 @@ const initialState = {
   edithorTheme2: {},
   edithorTheme3: {},
   edithorTheme4: {},
+  artistTheme: {},
+  h100: {},
+  hAlbum: {},
 };
 
 const appReducer = (state = initialState, action) => {
@@ -29,6 +32,12 @@ const appReducer = (state = initialState, action) => {
         editorTheme4:
           action.homeData?.find((item) => item.sectionId === "hEditorTheme4") ||
           {},
+        artistTheme:
+          action.homeData?.find((item) => item.sectionId === "hArtistTheme") ||
+          {},
+        h100: action.homeData?.find((item) => item.sectionId === "h100") || {},
+        hAlbum:
+          action.homeData?.find((item) => item.sectionId === "hAlbum") || {},
       };
 
     default:

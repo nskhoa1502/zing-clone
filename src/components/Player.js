@@ -110,7 +110,7 @@ const Player = ({ setIsShowRightBar }) => {
           thumbRef.current.style.cssText = `right: ${100 - percent}%`;
         }
         setCurrentSecond(Math.round(audio.currentTime));
-        console.log(percent);
+        // console.log(percent);
       }, 200);
     } else {
       audio.pause();
@@ -156,14 +156,14 @@ const Player = ({ setIsShowRightBar }) => {
         dispatch(actions.play(true));
       });
       dispatch(actions.play(true));
-      console.log(audio.currentTime);
+      // console.log(audio.currentTime);
       let percent =
         Math.round((audio.currentTime * 10000) / songInfo?.duration) / 100;
       if (thumbRef.current) {
         thumbRef.current.style.cssText = `right: ${100 - percent}%`;
       }
       setCurrentSecond(Math.round(audio.currentTime));
-      console.log(audio.currentTime);
+      // console.log(audio.currentTime);
     }
     // console.log(audio.currentTime);
   };

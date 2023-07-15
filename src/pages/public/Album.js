@@ -17,12 +17,12 @@ const Album = () => {
   const { currentSongId, isPlaying, songs } = useSelector(
     (state) => state.music
   );
-  console.log(isPlaying);
+  // console.log(isPlaying);
 
   useEffect(() => {
     const fetchDetailPlaylist = async () => {
       const response = await apis.apiGetDetailPlaylist(pid);
-      console.log(response?.data.data);
+      // console.log(response?.data.data);
       if (response?.data.err === 0) {
         setPlaylistData(response?.data?.data);
         dispatch(actions.setPlaylist(response?.data?.data?.song?.items));
