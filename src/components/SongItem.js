@@ -4,28 +4,58 @@ import "moment/locale/vi";
 import * as actions from "../redux/actions";
 import { useDispatch } from "react-redux";
 
-const SongItem = ({ thumbnail, title, artists, sid, releaseDate }) => {
+const SongItem = ({
+  thumbnail,
+  title,
+  artists,
+  sid,
+  releaseDate,
+  order,
+  percent,
+  style,
+}) => {
   const dispatch = useDispatch();
+  // console.log(style);
   return (
     <div
       onClick={() => {
         dispatch(actions.setCurrentSongId(sid));
         dispatch(actions.play(true));
       }}
-      className="w-1/2 lg:w-1/3 flex gap-[10px] flex-none justify-start border border-red-500 p-[10px] items-center hover:bg-main-200 rounded-md cursor-pointer"
+      className={`w-full flex gap-[10px] flex-none justify-between items-center  p-[10px] rounded-md cursor-pointer ${
+        style || "text-black hover:bg-main-200"
+      }`}
     >
-      <img
-        src={thumbnail}
-        alt="thumbnail"
-        className="w-[60px] h-[60px] object-cover rounded-md"
-      />
-      <div className="flex flex-col">
-        <span className="textsm font-semibold">{title}</span>
-        <span className="text-sx text-gray-600">{artists}</span>
-        <span className="text-sx text-gray-600">
-          {moment(releaseDate * 1000).fromNow()}
-        </span>
+      <div className="flex gap-4 ">
+        {order && (
+          <span
+            className={`flex items-center text-[32px] text-lg   text-[rgba(77,34,104,0.9)] dr  ${
+              order === 1
+                ? " text-shadow-no1"
+                : order === 2
+                ? "text-shadow-no2"
+                : "text-shadow-no3"
+            } `}
+          >
+            {order}
+          </span>
+        )}
+        <img
+          src={thumbnail}
+          alt="thumbnail"
+          className="w-[60px] h-[60px] object-cover rounded-md"
+        />
+        <div className="flex flex-col justify-center">
+          <span className="text-sm font-semibold">{title}</span>
+          <span className="text-xs opacity-70">{artists}</span>
+          {releaseDate && (
+            <span className={`text-xs text-gray-600`}>
+              {moment(releaseDate * 1000).fromNow()}
+            </span>
+          )}
+        </div>
       </div>
+      {percent && <span className="font-bold">{`${percent}%`}</span>}
     </div>
   );
 };

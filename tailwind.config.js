@@ -17,7 +17,6 @@ module.exports = {
         "main-300": "#ced9d9",
         "main-400": "#c0d8d8",
         "main-500": "#0e8080",
-        transparent: "transparent",
       },
       outlineColor: {
         "font-outline-2": {
@@ -30,7 +29,10 @@ module.exports = {
         },
       },
       flex: {
+        3: "3 3 0%",
         4: "4 4 0%",
+        6: "6 6 0%",
+        7: "7 7 0%",
       },
       screens: {
         1600: "1600px",

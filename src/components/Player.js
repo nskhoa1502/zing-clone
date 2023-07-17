@@ -270,7 +270,7 @@ const Player = ({ setIsShowRightBar }) => {
           </span>
         </div>
       </div>
-      <div className="w-[40%] flex-auto flex flex-col items-center justify-center border border-red-500 gap-2">
+      <div className="w-[40%] flex-auto flex flex-col items-center justify-center gap-2">
         {error && <span className="text-red-500 text-md">{error?.msg}</span>}
         <div className="flex gap-8 justify-center items-center">
           <span
@@ -354,7 +354,7 @@ const Player = ({ setIsShowRightBar }) => {
           </>
         )}
       </div>
-      <div className="w-[30%] flex-auto border border-red-500 flex items-center justify-end gap-4">
+      <div className="w-[30%] flex-auto  flex items-center justify-end gap-4">
         <div className="flex gap-2 items-center">
           <span onClick={handleVolumeIconClick}>
             {+volume >= 50 ? (

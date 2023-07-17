@@ -16,3 +16,4 @@ export { default as SongItem } from "./SongItem";
 export { default as NewReleases } from "./NewReleases";
 export { default as RankNewSongs } from "./RankNewSongs";
 export { default as WeekChart } from "./WeekChart";
+export { default as ChartSection } from "./ChartSection";

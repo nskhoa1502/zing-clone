@@ -26,10 +26,10 @@ const Public = () => {
   return (
     <div className="w-full relative flex flex-col bg-main-300 h-screen overflow-y-hidden ">
       <div className="flex w-full h-full flex-auto">
-        <div className="w-[240px] h-full flex-none border  border-blue-500">
+        <div className="w-[240px] h-full flex-none ">
           <SidebarLeft />
         </div>
-        <div className="flex-auto relative flex flex-col border border-red-500 ">
+        <div className="flex-auto relative flex flex-col  ">
           {isLoading && (
             <div className="absolute top-0 bottom-0 left-0 right-0 bg-main-300 z-20 flex items-center justify-center">
               <AppLoading />

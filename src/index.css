@@ -38,3 +38,39 @@ button.slick-prev:before {
   width: 40px;
   height: 40px;
 }
+
+a.chart-title {
+  background: #fd905a;
+  background: radial-gradient(
+    circle farthest-corner at top left,
+    #fd905a 0%,
+    #bc4cb3 55%,
+    #5f9be5 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+a.chart-title:hover {
+  background: #5f9be5;
+  background: radial-gradient(
+    circle farthest-corner at top left,
+    #5f9be5 0%,
+    #5f9be5 100%,
+    /* #bc4cb3 55%, */ /* #fd905a 100% */
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-shadow-no1 {
+  text-shadow: 1px 1px 0 #5f9be5, -1px 1px 0 #5f9be5, -1px -1px 0 #5f9be5,
+    1px -1px 0 #5f9be5;
+}
+.text-shadow-no2 {
+  text-shadow: 1px 1px 0 #50e3c2, -1px 1px 0 #50e3c2, -1px -1px 0 #50e3c2,
+    1px -1px 0 #50e3c2;
+}
+.text-shadow-no3 {
+  text-shadow: 1px 1px 0 #e35050, -1px 1px 0 #e35050, -1px -1px 0 #e35050,
+    1px -1px 0 #e35050;
+}

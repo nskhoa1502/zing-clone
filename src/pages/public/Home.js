@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  ChartSection,
   Header,
   NewReleases,
   RankNewSongs,
@@ -35,7 +36,7 @@ const Home = () => {
       <div className="px-[59px] w-full">
         <RankNewSongs />
       </div>
-
+      <ChartSection />
       <div className="flex items-center px-[59px] w-full mt-12">
         {weekChart?.items?.map((item) => (
           <Link
