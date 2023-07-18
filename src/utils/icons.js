@@ -19,6 +19,7 @@ import {
 } from "react-icons/bs";
 import { CiRepeat, CiShuffle } from "react-icons/ci";
 import { SlVolumeOff, SlVolume1, SlVolume2 } from "react-icons/sl";
+import {RiDeleteBin6Line} from "react-icons/ri";
 
 const icons = {
   MdOutlineLibraryMusic,
@@ -44,6 +45,7 @@ const icons = {
   SlVolumeOff,
   SlVolume1,
   SlVolume2,
+  RiDeleteBin6Line
 };
 
 export default icons;

@@ -58,6 +58,7 @@ const Player = ({ setIsShowRightBar }) => {
 
         if (res1?.data.err === 0) {
           setSongInfo(res1?.data?.data);
+          dispatch(actions.setCurrentSongData(res1?.data?.data));
 
           // console.log(res1?.data?.data);
         }
@@ -246,30 +247,37 @@ const Player = ({ setIsShowRightBar }) => {
   };
   return (
     <div className="bg-main-400 px-5 h-full flex">
-      <div className="w-[30%] flex-auto flex items-center gap-3">
-        <img
-          src={songInfo?.thumbnail}
-          alt="thumbnail"
-          className="w-24 h-16 object-cover rounded-md"
-        />
+      {currentSongId && (
+        <div className="w-[30%] flex-auto flex items-center gap-3">
+          <img
+            src={songInfo?.thumbnail}
+            alt="thumbnail"
+            className="w-24 h-16 object-cover rounded-md"
+          />
 
-        <div className="flex flex-col">
-          <span className="font-semibold text-gray-700 text-[14px]">
-            {songInfo?.title}
-          </span>
-          <span className="text-xs text-gray-500">
-            {songInfo?.artistsNames}
-          </span>
+          <div className="flex flex-col">
+            <span className="font-semibold text-gray-700 text-[14px]">
+              {songInfo?.title}
+            </span>
+            <span className="text-xs text-gray-500">
+              {songInfo?.artistsNames}
+            </span>
+          </div>
+          <div className="flex gap-3 pl-2">
+            <span>
+              <AiOutlineHeart size={16} />
+            </span>
+            <span>
+              <BsThreeDots size={16} />
+            </span>
+          </div>
         </div>
-        <div className="flex gap-3 pl-2">
-          <span>
-            <AiOutlineHeart size={16} />
-          </span>
-          <span>
-            <BsThreeDots size={16} />
-          </span>
+      )}
+      {!currentSongId && (
+        <div className="w-[30%] flex-auto flex items-center gap-3 text-sm opacity-70">
+          <span>Chưa có bài hát nào được chọn</span>
         </div>
-      </div>
+      )}
       <div className="w-[40%] flex-auto flex flex-col items-center justify-center gap-2">
         {error && <span className="text-red-500 text-md">{error?.msg}</span>}
         <div className="flex gap-8 justify-center items-center">

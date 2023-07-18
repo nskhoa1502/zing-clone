@@ -27,6 +27,14 @@ export const loading = (flag) => ({
   type: actionTypes.LOADING,
   flag,
 });
+export const setCurrentSongData = (data) => ({
+  type: actionTypes.SET_CURRENT_SONG_DATA,
+  data,
+});
+export const setCurrentAlbumId = (pid) => ({
+  type: actionTypes.SET_CURRENT_ALBUM_ID,
+  pid,
+});
 
 // export const fetchDetailPlaylist = (pid) => async (dispatch) => {
 //   try {
