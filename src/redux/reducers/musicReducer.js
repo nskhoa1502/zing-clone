@@ -8,6 +8,7 @@ const initialState = {
   atAlbum: false,
   songs: null,
   currentAlbumId: null,
+  recentSongs: [],
 };
 
 const musicReducer = (state = initialState, action) => {
@@ -46,6 +47,20 @@ const musicReducer = (state = initialState, action) => {
       return {
         ...state,
         currentAlbumId: action.pid || null,
+      };
+    case actionTypes.SET_RECENT:
+      return {
+        ...state,
+
+        // Remove existing song in the list, prevent duplicate
+        recentSongs: action.data
+          ? [
+              action?.data,
+              ...state.recentSongs
+                ?.filter((item) => item?.sid !== action.data?.sid)
+                .slice(0, 19),
+            ]
+          : state.recentSongs,
       };
     default:
       return state;

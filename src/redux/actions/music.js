@@ -35,6 +35,10 @@ export const setCurrentAlbumId = (pid) => ({
   type: actionTypes.SET_CURRENT_ALBUM_ID,
   pid,
 });
+export const setRecent = (data) => ({
+  type: actionTypes.SET_RECENT,
+  data,
+});
 
 // export const fetchDetailPlaylist = (pid) => async (dispatch) => {
 //   try {

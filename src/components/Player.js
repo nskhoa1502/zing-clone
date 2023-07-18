@@ -26,9 +26,8 @@ const {
 
 const Player = ({ setIsShowRightBar }) => {
   const [audio, setAudio] = useState(new Audio());
-  const { currentSongId, isPlaying, error, songs } = useSelector(
-    (state) => state.music
-  );
+  const { currentSongId, isPlaying, error, songs, currentSongData } =
+    useSelector((state) => state.music);
 
   // console.log(isPlaying);
   const [songInfo, setSongInfo] = useState(null);
@@ -39,8 +38,8 @@ const Player = ({ setIsShowRightBar }) => {
   const [isShuffle, setIsShuffle] = useState(false);
   const [repeatMode, setRepeatMode] = useState(0);
   const [isLoadedSource, setIsLoadedSource] = useState(true);
-  const [volume, setVolume] = useState(50);
-  const volumeRef = useRef(50);
+  const [volume, setVolume] = useState(10);
+  const volumeRef = useRef(10);
 
   // console.log("rerender");
 
@@ -59,6 +58,14 @@ const Player = ({ setIsShowRightBar }) => {
         if (res1?.data.err === 0) {
           setSongInfo(res1?.data?.data);
           dispatch(actions.setCurrentSongData(res1?.data?.data));
+          dispatch(
+            actions.setRecent({
+              thumbnail: res1?.data?.data?.thumbnail,
+              title: res1?.data?.data?.title,
+              sid: res1?.data?.data?.encodeId,
+              artists: res1?.data?.data?.artistsNames,
+            })
+          );
 
           // console.log(res1?.data?.data);
         }
@@ -77,6 +84,7 @@ const Player = ({ setIsShowRightBar }) => {
           setAudio(new Audio());
           dispatch(actions.play(false));
           dispatch(actions.error(res2?.data));
+
           setIsLoadedSource(true);
           if (thumbRef.current) {
             thumbRef.current.style.cssText = `right: 100%`;
@@ -285,7 +293,9 @@ const Player = ({ setIsShowRightBar }) => {
             className={`cursor-pointer hover:text-purple-600 ${
               isShuffle && "text-purple-600"
             }`}
-            title="Bật phát ngẫu nhiên"
+            title={
+              isShuffle ? `Tắt bật phát ngẫu nhiên` : `Bật phát ngẫu nhiên`
+            }
             onClick={() => {
               setIsShuffle((prev) => !prev);
             }}

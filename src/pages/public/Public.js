@@ -19,9 +19,9 @@ const Public = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(actions.setCurrentSongId(null));
-    dispatch(actions.setCurrentSongData(null));
-    dispatch(actions.setCurrentAlbumId(null));
+    // dispatch(actions.setCurrentSongId(null));
+    // dispatch(actions.setCurrentSongData(null));
+    // dispatch(actions.setCurrentAlbumId(null));
     // console.log(currentSongId);
   }, []);
   // console.log(currentSongId);
