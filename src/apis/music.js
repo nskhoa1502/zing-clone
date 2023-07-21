@@ -52,3 +52,16 @@ export const apiGetDetailPlaylist = async (pid) => {
     console.error(error.response.data);
   }
 };
+export const apiSearch = async (keyword) => {
+  try {
+    const response = await axiosConfig({
+      url: `/search`,
+      method: "get",
+      params: { keyword },
+    });
+
+    return response;
+  } catch (error) {
+    console.error(error.response.data);
+  }
+};
