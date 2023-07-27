@@ -6,7 +6,7 @@ import { createSearchParams, useNavigate } from "react-router-dom";
 import path from "../utils/path";
 import { useDispatch } from "react-redux";
 
-const { AiOutlineSearch } = icons;
+const { AiOutlineSearch, GrClose } = icons;
 const Search = () => {
   const [keyword, setKeyword] = useState("");
   const navigate = useNavigate();
@@ -25,7 +25,7 @@ const Search = () => {
   };
 
   return (
-    <div className="w-full flex ">
+    <div className="w-full flex relative ">
       <span className="h-10 pl-4 flex items-center justify-center rounded-l-[20px] bg-[#dde4e4] text-gray-500 ">
         <AiOutlineSearch size={24} />
       </span>

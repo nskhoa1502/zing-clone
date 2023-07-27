@@ -48,9 +48,9 @@ const Public = () => {
             <Scrollbars autoHide style={{ width: "100%", height: "100%" }}>
               <Outlet />
               {/* <div className="w-full h-[100px]"></div> */}
+              <div className="w-full h-[100px]"></div>
             </Scrollbars>
           </div>
-          {/* <div className="w-full h-[500px]"></div> */}
         </div>
         {isShowRightBar && (
           <div className="w-[329px] flex-none border border-green-500 hidden 1600:flex animate-slide-left mb-[90px]">

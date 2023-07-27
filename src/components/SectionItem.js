@@ -70,9 +70,9 @@ const SectionItem = ({ item, handleThemeClick }) => {
           {item?.title && (
             <>
               <span className="font-semibold">
-                {item?.title?.length < 20
+                {item?.title?.length < 30
                   ? item?.title
-                  : `${item?.title?.slice(0, 28)}...`}
+                  : `${item?.title?.slice(0, 38)}...`}
               </span>
               <span>
                 {item?.artists?.map((i) => i.name)?.join(", ").length < 40

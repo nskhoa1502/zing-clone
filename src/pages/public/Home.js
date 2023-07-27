@@ -22,7 +22,7 @@ const Home = () => {
     hAlbum,
     weekChart,
   } = useSelector((state) => state.app);
-  console.log(weekChart);
+  // console.log(weekChart);
 
   return (
     <div className="overflow-y-auto w-full">

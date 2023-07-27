@@ -19,11 +19,11 @@ const SidebarRight = () => {
   } = useSelector((state) => state.music);
   // console.log(currentAlbumId);
   // console.log(playlist);
-  console.log(recentSongs);
+  // console.log(recentSongs);
 
   const fetchDetailPlaylist = async () => {
     const response = await apiGetDetailPlaylist(currentAlbumId);
-    console.log(response.data);
+    // console.log(response.data);
     if (response?.data?.err === 0) {
       setPlaylist(response?.data?.data?.song?.items);
     }
@@ -70,8 +70,8 @@ const SidebarRight = () => {
                 title={currentSongData?.title}
                 artists={currentSongData?.artistsNames}
                 sid={currentSongData?.encodeId}
-                sm
                 style={`bg-main-500 text-white`}
+                size={`w-[40px] h-[40px]`}
               />
             )}
             {!currentSongId && (
@@ -109,7 +109,8 @@ const SidebarRight = () => {
                     artists={item?.artistsNames}
                     sid={item?.encodeId}
                     key={item?.encodeId}
-                    sm
+                    size={`w-[40px] h-[40px]`}
+
                     // style={`bg-main-500 text-white`}
                   />
                 ))}
@@ -132,10 +133,10 @@ const SidebarRight = () => {
                     artists={item?.artists}
                     sid={item?.sid}
                     key={index}
-                    sm
                     style={
                       item?.sid === currentSongId && `bg-main-500 text-white`
                     }
+                    size={`w-[40px] h-[40px]`}
                   />
                 ))}
               {!recentSongs && (

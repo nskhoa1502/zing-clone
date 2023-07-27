@@ -30,3 +30,13 @@ export const getArrSlider = (start, end, arrLength) => {
 };
 // const newArr = [0, 1, 2, 3, 4, 5, 6, 7];
 // funcA(newArr, 4);
+
+export const handleFollowerNumber = (number) => {
+  if (number > Math.pow(10, 6)) {
+    return `${Math.round((number * 10) / Math.pow(10, 6)) / 10}M`;
+  } else if (number < 1000) {
+    return number;
+  } else {
+    return `${Math.round((number * 10) / Math.pow(10, 4))}K`;
+  }
+};

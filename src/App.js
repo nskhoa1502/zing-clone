@@ -9,7 +9,9 @@ import {
   Public,
   Search,
   SearchAll,
+  SearchPlaylist,
   SearchSongs,
+  Singer,
   WeekRank,
   ZingChart,
 } from "./pages/public";
@@ -37,9 +39,11 @@ function App() {
             <Route path={path.PLAYLIST__TITLE__PID} element={<Album />} />
             <Route path={path.WEEKRANK__TITLE__PID} element={<WeekRank />} />
             <Route path={path.ZING_CHART} element={<ZingChart />} />
+            <Route path={path.HOME__SINGER} element={<Singer />} />
             <Route path={path.SEARCH} element={<Search />}>
               <Route path={path.ALL} element={<SearchAll />} />
               <Route path={path.SONG} element={<SearchSongs />} />
+              <Route path={path.PLAYLIST_SEARCH} element={<SearchPlaylist />} />
             </Route>
           </Route>
         </Routes>

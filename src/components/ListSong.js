@@ -6,7 +6,7 @@ import * as actions from "../redux/actions";
 
 const { BsMusicNoteBeamed } = icons;
 
-const ListSong = ({ songData }) => {
+const ListSong = ({ songData, isHideAlbum }) => {
   const { songs } = useSelector((state) => state.music);
   const dispatch = useDispatch();
 
@@ -20,9 +20,11 @@ const ListSong = ({ songData }) => {
       className="flex justify-between items-center p-[10px] border-t border-[rgba(0,0,0,0.05)] hover:bg-main-200 cursor-pointer"
     >
       <div className="flex items-center gap-3 w-[50%] flex-none ">
-        <span>
-          <BsMusicNoteBeamed />
-        </span>
+        {!isHideAlbum && (
+          <span>
+            <BsMusicNoteBeamed />
+          </span>
+        )}
         <img
           src={songData?.thumbnail}
           className="w-10 h-10 object-cover"
@@ -37,11 +39,13 @@ const ListSong = ({ songData }) => {
           <span className="text-[12px]">{songData?.artistsNames}</span>
         </span>
       </div>
-      <div className="flex-1 flex items-center justify-center">
-        {songData?.album?.title.length > 30
-          ? `${songData?.album?.title?.slice(0, 30)}...`
-          : songData?.album?.title}
-      </div>
+      {!isHideAlbum && (
+        <div className="flex-1 flex items-center justify-center">
+          {songData?.album?.title.length > 30
+            ? `${songData?.album?.title?.slice(0, 30)}...`
+            : songData?.album?.title}
+        </div>
+      )}
       <div className="flex-1 flex justify-end">
         {moment.utc(songData?.duration * 1000).format("mm:ss")}
       </div>

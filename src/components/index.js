@@ -17,3 +17,4 @@ export { default as NewReleases } from "./NewReleases";
 export { default as RankNewSongs } from "./RankNewSongs";
 export { default as WeekChart } from "./WeekChart";
 export { default as ChartSection } from "./ChartSection";
+export { default as Artist } from "./Artist";
