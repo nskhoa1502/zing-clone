@@ -4,7 +4,7 @@ import icons from "../utils/icons";
 
 const { AiOutlineHeart, BsFillPlayFill, BsThreeDots } = icons;
 
-const SectionItem = ({ item, handleThemeClick }) => {
+const SectionItem = ({ item, handleThemeClick, isSearch }) => {
   const [isHover, setIsHover] = useState(false);
   const dispatch = useDispatch();
   const imageRef = useRef();
@@ -14,7 +14,7 @@ const SectionItem = ({ item, handleThemeClick }) => {
     <>
       <div
         key={item?.encodeId}
-        className="flex flex-col gap-3 w-[19%] text-sm h-full cursor-pointer justify-start "
+        className={`flex flex-col gap-3 w-[18%] text-sm h-full cursor-pointer justify-start `}
         onClick={() => handleThemeClick(item, false)}
       >
         <div

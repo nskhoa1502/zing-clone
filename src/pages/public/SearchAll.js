@@ -23,7 +23,7 @@ const SearchAll = () => {
   return (
     <div className="w-full flex flex-col px-[60px] gap-[60px]">
       <div className="flex flex-col ">
-        <h3 className="text-lg font-bold mb-5">Nổi bật</h3>
+        <h3 className="text-lg font-bold mb-5 ">Nổi bật</h3>
         <div className="flex gap-8">
           {searchData?.top && (
             <div className="flex  flex-1 gap-8 p-[10px] bg-main-200 rounded-md  items-center  cursor-pointer">

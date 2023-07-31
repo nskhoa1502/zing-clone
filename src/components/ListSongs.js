@@ -11,9 +11,11 @@ const ListSongs = ({ songs, totalDuration, isHideTime }) => {
     <div className="w-full flex flex-col text-xs">
       <div className="flex justify-between items-center  p-[10px] font-semibold text-gray-600">
         <span
-          className={`w-[50%] flex-none ${isHideTime && "font-bold text-lg"}`}
+          className={`w-[50%] flex-none ${
+            isHideTime && "font-bold text-black text-lg"
+          }`}
         >
-          BÀI HÁT
+          {isHideTime ? "Bài hát" : "BÀI HÁT"}
         </span>
         {!isHideTime && (
           <>
