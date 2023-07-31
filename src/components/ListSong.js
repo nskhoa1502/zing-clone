@@ -6,7 +6,7 @@ import * as actions from "../redux/actions";
 
 const { BsMusicNoteBeamed } = icons;
 
-const ListSong = ({ songData, isHideAlbum }) => {
+const ListSong = ({ songData, isHideAlbum, isHideNode }) => {
   const { songs } = useSelector((state) => state.music);
   const dispatch = useDispatch();
 
@@ -20,7 +20,7 @@ const ListSong = ({ songData, isHideAlbum }) => {
       className="flex justify-between items-center p-[10px] border-t border-[rgba(0,0,0,0.05)] hover:bg-main-200 cursor-pointer"
     >
       <div className="flex items-center gap-3 w-[50%] flex-none ">
-        {!isHideAlbum && (
+        {!isHideNode && (
           <span>
             <BsMusicNoteBeamed />
           </span>

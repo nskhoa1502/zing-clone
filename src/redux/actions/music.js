@@ -59,6 +59,26 @@ export const search = (keyword) => async (dispatch) => {
     });
   }
 };
+export const getSearchSongs = (singerId) => async (dispatch) => {
+  try {
+    const response = await apis.apiGetArtistSongs(singerId);
+    console.log(response);
+    if (response.data.err === 0) {
+      dispatch({
+        type: actionTypes.PLAYLIST,
+        songs: response.data?.data?.items,
+      });
+    } else {
+      dispatch({ type: actionTypes.PLAYLIST, songs: null });
+    }
+  } catch (error) {
+    console.error(error.response.data);
+    dispatch({
+      type: actionTypes.PLAYLIST,
+      songs: null,
+    });
+  }
+};
 
 // export const fetchDetailPlaylist = (pid) => async (dispatch) => {
 //   try {

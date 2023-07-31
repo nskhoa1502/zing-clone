@@ -65,3 +65,35 @@ export const apiSearch = async (keyword) => {
     console.error(error.response.data);
   }
 };
+export const apiGetArtistSongs = async (singerId) => {
+  try {
+    const response = await axiosConfig({
+      url: `/artistsong`,
+      method: "get",
+      params: {
+        id: singerId,
+        page: 1,
+        count: 50,
+      },
+    });
+
+    return response;
+  } catch (error) {
+    console.error(error.response.data);
+  }
+};
+export const apiGetArtist = async (alias) => {
+  try {
+    const response = await axiosConfig({
+      url: `/artist`,
+      method: "get",
+      params: {
+        name: alias,
+      },
+    });
+
+    return response;
+  } catch (error) {
+    console.error(error.response.data);
+  }
+};
