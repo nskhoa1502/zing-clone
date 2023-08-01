@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { handleFollowerNumber } from "../../utils/helpers";
 import {
@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 const SearchAll = () => {
   const { searchData } = useSelector((state) => state.music);
   const navigate = useNavigate();
+  const ref = useRef();
 
   console.log(searchData);
 
@@ -20,10 +21,21 @@ const SearchAll = () => {
     navigate(albumPath);
     // console.log(albumPath);
   };
+
+  useEffect(() => {
+    ref.current.scrollIntoView({
+      behavior: "smooth",
+      block: "end",
+      inline: "nearest",
+    });
+  }, [searchData]);
+
   return (
     <div className="w-full flex flex-col px-[60px] gap-[60px]">
       <div className="flex flex-col ">
-        <h3 className="text-lg font-bold mb-5 ">Nổi bật</h3>
+        <h3 ref={ref} className="text-lg font-bold mb-5 ">
+          Nổi bật
+        </h3>
         <div className="flex gap-8">
           {searchData?.top && (
             <div
@@ -80,16 +92,13 @@ const SearchAll = () => {
           <div className="flex justify-between flex-wrap w-full ">
             {searchData?.songs?.map((item, index) => (
               <div
-                className={` ${
-                  index % 2 === 0 ? "pr-5" : "pl-5"
-                } w-[45%] flex-auto`}
+                className={` ${index % 2 === 0 ? "pr-2" : "pl-2"} w-[50%] `}
                 key={item?.encodeId}
               >
                 <ListSong songData={item} isHideAlbum />
               </div>
             ))}
           </div>
-          <div className="flex-1"></div>
         </div>
       </div>
       <div className="flex flex-col">

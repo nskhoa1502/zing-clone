@@ -1,10 +1,11 @@
 import React, { memo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import SectionItem from "./SectionItem";
 
 const Section = ({ editorTheme, number, isSearch }) => {
   const navigate = useNavigate();
+  const { singer } = useParams();
 
   // console.log(editorTheme);
 
@@ -18,7 +19,7 @@ const Section = ({ editorTheme, number, isSearch }) => {
       className={`${!isSearch && "mt-[48px] px-[59px]"}  flex flex-col gap-5`}
     >
       <div className="flex items-center justify-between">
-        {!isSearch && (
+        {(!isSearch || singer) && (
           <>
             <h3 className="text-[20px] font-bold">{editorTheme?.title}</h3>
             <span className="text-xs">TẤT CẢ</span>
@@ -27,7 +28,7 @@ const Section = ({ editorTheme, number, isSearch }) => {
       </div>
       <div
         className={`flex items-start ${
-          isSearch ? "justify-start gap-4" : "justify-between"
+          isSearch || singer ? "justify-start gap-4" : "justify-between"
         }  flex-wrap`}
       >
         {editorTheme &&
