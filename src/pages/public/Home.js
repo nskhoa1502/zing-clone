@@ -26,6 +26,8 @@ const Home = () => {
 
   return (
     <div className="overflow-y-auto w-full">
+      <div className="w-full h-[70px]"></div>
+
       <Slider />
       <NewReleases />
       <Section editorTheme={editorTheme} />
@@ -37,10 +39,10 @@ const Home = () => {
         <RankNewSongs />
       </div>
       <ChartSection />
-      <div className="flex items-center px-[59px] w-full mt-12">
+      <div className="flex items-center px-[59px] gap-5  w-full mt-12">
         {weekChart?.items?.map((item) => (
           <Link
-            className="flex-1 px-4"
+            className="flex-1 "
             key={item?.link}
             to={item?.link?.split(".")[0]}
           >

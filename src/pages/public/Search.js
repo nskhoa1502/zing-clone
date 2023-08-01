@@ -18,6 +18,7 @@ const Search = () => {
 
   return (
     <div className="w-full">
+      <div className="w-full h-[70px]"></div>
       <div className="flex h-[50px] mb-7 items-center text-sm border-b border-gray-400 pb-1 pl-[60px]">
         <span className="text-[24px] font-bold pr-6 border-r border-gray-400">
           Kết quả tìm kiếm

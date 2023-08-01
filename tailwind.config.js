@@ -99,6 +99,16 @@ module.exports = {
             transform: "scale(1.1)",
           },
         },
+        "scale-up-center-full": {
+          "0%": {
+            "-webkit-transform": "scale(0)",
+            transform: "scale(0)",
+          },
+          "100%": {
+            "-webkit-transform": "scale(1)",
+            transform: "scale(1)",
+          },
+        },
         "scale-down-center": {
           "0%": {
             "-webkit-transform": "scale(1.1)",
@@ -121,6 +131,8 @@ module.exports = {
         "rotate-center-pause": "rotate-center-pause 0.2s  linear 2 both",
         "scale-up-center":
           "scale-up-center 0.5s  cubic-bezier(0.250, 0.460, 0.450, 0.940) both",
+        "scale-up-center-full":
+          "scale-up-center-full 0.2s  cubic-bezier(0.250, 0.460, 0.450, 0.940) both",
         "scale-down-center":
           "scale-down-center 0.5s  cubic-bezier(0.250, 0.460, 0.450, 0.940) both",
       },

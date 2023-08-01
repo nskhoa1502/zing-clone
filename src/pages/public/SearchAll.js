@@ -26,7 +26,13 @@ const SearchAll = () => {
         <h3 className="text-lg font-bold mb-5 ">Nổi bật</h3>
         <div className="flex gap-8">
           {searchData?.top && (
-            <div className="flex  flex-1 gap-8 p-[10px] bg-main-200 rounded-md  items-center  cursor-pointer">
+            <div
+              className="flex flex-1 gap-8 p-[10px] bg-main-200 rounded-md  items-center  cursor-pointer"
+              onClick={() =>
+                searchData?.top?.objectType === "artist" &&
+                navigate(`${searchData?.top?.link}`)
+              }
+            >
               <img
                 src={searchData?.top?.thumbnail}
                 alt="avatar"

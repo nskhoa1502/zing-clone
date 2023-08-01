@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useParams } from "react-router-dom";
 import {
   AppLoading,
   Header,
@@ -16,6 +16,7 @@ const Public = () => {
   const { currentSongId } = useSelector((state) => state.music);
   // console.log(currentSongId);
   const { isLoading } = useSelector((state) => state.app);
+  const { singer } = useParams();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -41,10 +42,14 @@ const Public = () => {
             </div>
           )}
 
-          <div className="h-[70px] px-[59px] flex items-center  ">
+          <div
+            className={`h-[70px] px-[59px] fixed top-0 left-[240px] right-[329px]  z-50 flex items-center  ${
+              singer ? "bg-transparent" : "bg-main-300"
+            }`}
+          >
             <Header />
           </div>
-          <div className="flex-auto w-full">
+          <div className={`flex-auto w-full `}>
             <Scrollbars autoHide style={{ width: "100%", height: "100%" }}>
               <Outlet />
               {/* <div className="w-full h-[100px]"></div> */}
