@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { apiGetChartHome } from "../../apis";
 
 const WeekRank = () => {
   return <div>WeekRank</div>;

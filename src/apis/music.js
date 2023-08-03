@@ -97,3 +97,15 @@ export const apiGetArtist = async (alias) => {
     console.error(error.response.data);
   }
 };
+export const apiGetChartHome = async () => {
+  try {
+    const response = await axiosConfig({
+      url: `/charthome`,
+      method: "get",
+    });
+    // console.log(response);
+    return response;
+  } catch (error) {
+    console.error(error.response.data);
+  }
+};

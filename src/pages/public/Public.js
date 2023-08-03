@@ -15,7 +15,7 @@ const Public = () => {
   const [isShowRightBar, setIsShowRightBar] = useState(true);
   const { currentSongId } = useSelector((state) => state.music);
   // console.log(currentSongId);
-  const { isLoading } = useSelector((state) => state.app);
+  const { isLoading, scrollTop } = useSelector((state) => state.app);
   const { singer } = useParams();
   const dispatch = useDispatch();
 
@@ -26,6 +26,17 @@ const Public = () => {
     // console.log(currentSongId);
   }, []);
   // console.log(currentSongId);
+
+  const handleScrollTop = (e) => {
+    console.log(e.target.scrollTop);
+    if (singer) {
+      if (e.target.scrollTop === 0) {
+        dispatch(actions.zeroScrollTop(true));
+      } else {
+        dispatch(actions.zeroScrollTop(false));
+      }
+    }
+  };
   return (
     <div className="w-full relative flex flex-col bg-main-300 h-screen overflow-y-hidden ">
       <div className="flex w-full h-full flex-auto">
@@ -44,13 +55,19 @@ const Public = () => {
 
           <div
             className={`h-[70px] px-[59px] fixed top-0 left-[240px] right-[329px]  z-50 flex items-center  ${
-              singer ? "bg-transparent" : "bg-main-300"
+              scrollTop && singer ? "bg-transparent" : "bg-main-300"
             }`}
           >
             <Header />
           </div>
           <div className={`flex-auto w-full `}>
-            <Scrollbars autoHide style={{ width: "100%", height: "100%" }}>
+            <Scrollbars
+              onScroll={(e) => {
+                handleScrollTop(e);
+              }}
+              autoHide
+              style={{ width: "100%", height: "100%" }}
+            >
               <Outlet />
               {/* <div className="w-full h-[100px]"></div> */}
               <div className="w-full h-[100px]"></div>
@@ -58,7 +75,7 @@ const Public = () => {
           </div>
         </div>
         {isShowRightBar && (
-          <div className="w-[329px] flex-none border border-green-500 hidden 1600:flex animate-slide-left mb-[90px]">
+          <div className="w-[329px] flex-none  hidden 1600:flex animate-slide-left mb-[90px]">
             <SidebarRight />
           </div>
         )}

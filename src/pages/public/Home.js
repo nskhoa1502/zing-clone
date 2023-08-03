@@ -27,7 +27,18 @@ const Home = () => {
   return (
     <div className="overflow-y-auto w-full">
       <div className="w-full h-[70px]"></div>
-
+      <div className="w-full flex items-center justify-center">
+        <div className="flex flex-col px-[60px]">
+          <p className="text-[32px] text-red-500">
+            Trang web này được thực hiện để phục vụ cho mục đích học tập, không
+            có mục đích thương mại.
+          </p>
+          <p className="text-[32px] text-blue-500">
+            Do server cần thời gian khởi động, xin hãy khởi động lại sau ít
+            giây.
+          </p>
+        </div>
+      </div>
       <Slider />
       <NewReleases />
       <Section editorTheme={editorTheme} />

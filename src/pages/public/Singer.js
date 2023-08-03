@@ -4,6 +4,7 @@ import { apiGetArtist } from "../../apis";
 import icons from "../../utils/icons";
 import { Artist, ListSong, Section } from "../../components";
 import DOMPurify from "dompurify";
+import { useSelector } from "react-redux";
 
 const { AiOutlineUserAdd, BsFillPlayFill } = icons;
 
@@ -13,8 +14,8 @@ const Singer = () => {
   const [isHoverPlay, setIsHoverPlay] = useState(false);
   const [readMore, setReadMore] = useState(false);
   const ref = useRef();
-
-  // console.log(singer);
+  const { scrollTop } = useSelector((state) => state.app);
+  console.log(scrollTop);
 
   useEffect(() => {
     const fetchArtistData = async () => {
@@ -120,7 +121,8 @@ const Singer = () => {
         ?.filter(
           (section) =>
             section?.sectionId !== "aSongs" &&
-            section?.sectionId !== "aReArtist"
+            section?.sectionId !== "aReArtist" &&
+            section?.sectionId !== "aMV"
         )
         .map((section, index) => (
           <Section editorTheme={section} key={index} />
@@ -131,7 +133,8 @@ const Singer = () => {
         <div className="flex items-start  gap-[20px]">
           {artistData?.sections
             ?.filter((section) => section?.sectionId === "aReArtist")[0]
-            ?.items.map((item) => (
+            ?.items?.slice(0, 5)
+            ?.map((item) => (
               <Artist
                 key={item?.id}
                 title={item?.name}
@@ -144,20 +147,48 @@ const Singer = () => {
         <div className="flex-1"></div>
       </div>
       <div className="mt-[30px] px-[60px]">
-        <h3 className="px-[120px] text-lg font-bold mb-5">{`Về ${artistData?.name}`}</h3>
+        <h3 className=" text-xxl font-bold mb-5">{`Về ${artistData?.name}`}</h3>
         <div className="flex gap-8">
           <img
             src={artistData?.thumbnailM}
             alt="thumbnail"
-            className="w-[45%] flex-none h-[275px] object-contain rounded-md"
+            className="w-[45%] flex-none self-start object-contain rounded-md"
           />
           <div className="flex flex-col gap-8 text-xs">
-            <p
-              className="text-[14px] leading-[1.2rem]"
-              dangerouslySetInnerHTML={{
-                __html: DOMPurify.sanitize(artistData?.biography),
-              }}
-            ></p>
+            {!readMore && (
+              <p
+                className="text-[14px] leading-[1.2rem]"
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(
+                    `${artistData?.biography.slice(0, 700)}...`
+                  ),
+                }}
+              ></p>
+            )}
+            {readMore && (
+              <p
+                className="text-[14px] leading-[1.2rem]"
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(artistData?.biography),
+                }}
+              ></p>
+            )}
+            {!readMore && (
+              <span
+                className="text-main-500 text-sm cursor-pointer"
+                onClick={() => setReadMore(true)}
+              >
+                Xem thêm
+              </span>
+            )}
+            {readMore && (
+              <span
+                className="text-main-500 text-sm cursor-pointer"
+                onClick={() => setReadMore(false)}
+              >
+                Rút gọn
+              </span>
+            )}
             <div>
               <div className="flex flex-col gap-2">
                 <span className="text-[20px] font-bold">

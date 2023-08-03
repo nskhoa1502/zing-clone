@@ -15,6 +15,7 @@ const initialState = {
   rankNewSongs: {},
   chart: {},
   rank: [],
+  scrollTop: true,
 };
 
 const appReducer = (state = initialState, action) => {
@@ -65,6 +66,11 @@ const appReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: action.flag,
+      };
+    case actionTypes.ZERO_SCROLLTOP:
+      return {
+        ...state,
+        scrollTop: action.flag,
       };
     default:
       return state;

@@ -41,6 +41,8 @@ const Player = ({ setIsShowRightBar }) => {
   const [volume, setVolume] = useState(10);
   const volumeRef = useRef(10);
 
+  // console.log(currentSongId);
+
   // console.log("rerender");
 
   useEffect(() => {
@@ -53,7 +55,7 @@ const Player = ({ setIsShowRightBar }) => {
         const [res1, res2] = await Promise.all([
           apis.apiGetDetailSong(currentSongId),
           apis.apiGetSong(currentSongId),
-        ]);
+        ]).catch((err) => console.error(err?.response?.data));
 
         if (res1?.data.err === 0) {
           setSongInfo(res1?.data?.data);
@@ -94,10 +96,11 @@ const Player = ({ setIsShowRightBar }) => {
         }
       } catch (error) {
         console.error(error);
+        console.log(error);
       }
     };
 
-    fetchDetailSong();
+    currentSongId && fetchDetailSong();
   }, [currentSongId]);
 
   useEffect(() => {

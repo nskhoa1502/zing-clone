@@ -132,6 +132,9 @@ const ChartSection = () => {
         <Link to={path.ZING_CHART} className="text-2xl font-bold chart-title  ">
           #zingchart
         </Link>
+        {/* <span to={path.ZING_CHART} className="text-2xl font-bold chart-title  ">
+          #zingchart
+        </span> */}
         <span className="text-main-500 p-1 rounded-full bg-white">
           <BsFillPlayFill size={16} />
         </span>

@@ -21,14 +21,18 @@ const Album = () => {
   useEffect(() => {
     dispatch(actions.setCurrentAlbumId(pid));
     const fetchDetailPlaylist = async () => {
-      dispatch(actions.loading(true));
-      const response = await apis.apiGetDetailPlaylist(pid);
-      dispatch(actions.loading(false));
-      // console.log(isLoading);
-      // console.log(response?.data.data);
-      if (response?.data.err === 0) {
-        setPlaylistData(response?.data?.data);
-        dispatch(actions.setPlaylist(response?.data?.data?.song?.items));
+      try {
+        dispatch(actions.loading(true));
+        const response = await apis.apiGetDetailPlaylist(pid);
+        dispatch(actions.loading(false));
+        // console.log(isLoading);
+        // console.log(response?.data.data);
+        if (response?.data.err === 0) {
+          setPlaylistData(response?.data?.data);
+          dispatch(actions.setPlaylist(response?.data?.data?.song?.items));
+        }
+      } catch (error) {
+        console.error(error?.response?.data);
       }
     };
     fetchDetailPlaylist(pid);
