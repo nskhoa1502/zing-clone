@@ -2,7 +2,7 @@
 
 ## Description
 
-This project is a music player website built using ReactJS, ExpressJS using an npm package. It serves as a platform where real estate agents or sellers can post their listings to sell properties. The website offers the following features:
+This project is a music player website built using ReactJS, ExpressJS using an npm package. It serves as a platform where music enjoyers could easily search and listen to their favourite music. The website offers the following features:
 
 1. Efficient searching songs, artists, albums/playlists.
 2. A fully-fledge music player function
