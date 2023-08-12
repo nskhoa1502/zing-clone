@@ -1,21 +1,22 @@
-# Music Player Website
+# Music Player Websit
 
-## Description
+## Project Description
 
-This project is a music player website built using ReactJS, ExpressJS using an npm package. It serves as a platform where music enjoyers could easily search and listen to their favourite music. The website offers the following features:
+Welcome to our Music Player Website written in ReactJS and ExpressJS. This platform caters to music enthusiasts, offering a seamless hub to effortlessly search for and indulge in their favorite tunes. The website has some interesting features, including:
 
-1. Efficient searching songs, artists, albums/playlists.
-2. A fully-fledge music player function
+1. **Efficient Music Search:** Easily explore songs, artists, albums, and playlists using our intuitive search functionality.
+2. **Comprehensive Music Player:** Immerse yourself in a fully-featured music player, designed for optimal playback enjoyment.
 
-## Technologies
+## Technology Stack
 
-- React
-- Node.js
-  
-## Demo
+- **React:** Driving our interactive and responsive front-end interface.
+- **Node.js:** Enabling robust backend operations and efficient server-side processes.
 
-Visit the live demo at:
+## Live Demo
+
+Explore the live demo of the Music Player Website at:
 
 [https://khoa-testzing.netlify.app/](https://khoa-testzing.netlify.app/)
 
-We need to initiate a server bootup, which may take approximately one minute. Please expect a brief waiting period while the server starts up. This is because the server is free and requires initialization to ensure smooth operation.
+Please allow up to a minute for the server bootup process during the initial visit. This brief waiting period is necessary to ensure the seamless operation of our platform's free server.
+
